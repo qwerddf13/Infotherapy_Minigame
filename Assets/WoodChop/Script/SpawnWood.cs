@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class SpawnWood : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class SpawnWood : MonoBehaviour
     public int maxWoodAmount = 10;
     public int toSetWoodNum = 0;
     public int toSetSpriteNum = 0;
+    public List<int> woodNums = new List<int> {0};
 
     void Start()
     {
@@ -33,6 +35,9 @@ public class SpawnWood : MonoBehaviour
 
     public void DoSpawnWood()
     {
+        if (woodNums.Count >= 10)
+            woodNums.RemoveAt(0);
+        
         if (toSetSpriteNum == 2 || toSetSpriteNum == 3)
         {
             toSetSpriteNum = Random.Range(0, 2);
@@ -41,9 +46,9 @@ public class SpawnWood : MonoBehaviour
         {
             toSetSpriteNum = Random.Range(0, 4);
         }
+        woodNums.Add(toSetSpriteNum);
         
         Instantiate(woodPrefab, transform.position, transform.rotation);
-        Debug.Log("나무 생성.");
     }
 
     IEnumerator DoSettingSpawn()
@@ -55,6 +60,7 @@ public class SpawnWood : MonoBehaviour
             DoSpawnWood();
             yield return null;
         }
+        Debug.Log(string.Join(",", woodNums));
         yield break;
     }
 }

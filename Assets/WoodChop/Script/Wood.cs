@@ -36,13 +36,23 @@ public class Wood : MonoBehaviour
     {
         if (woodNum == 1)
         {
-            Debug.Log("나무 잘림. 점수 상승.");
             Destroy(gameObject);
         }
         else
         {
-            transform.Translate(new Vector2(0, -1));
+            StartCoroutine(DoCuttingFall());
             woodNum--;
         }
+    }
+
+    IEnumerator DoCuttingFall()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            transform.Translate(new Vector2(0, -0.1f));
+            yield return null;
+        }
+
+        yield break;
     }
 }
