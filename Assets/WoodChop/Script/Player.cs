@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        while (isGameRunning == true) {
+        if (isGameRunning == true) {
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             transform.position = new Vector2(-1.5f, transform.position.y);
@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
             if (spawnWood.woodNums[0] == 2)
             {
                 OnOver_Player?.Invoke();
-                Debug.Log("게임 오버.");
+                Debug.Log("플레이어 게임 오버.");
             }
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
             if (spawnWood.woodNums[0] == 3)
             {
                 OnOver_Player?.Invoke();
-                Debug.Log("게임 오버.");
+                Debug.Log("플레이어 게임 오버.");
             }
         }
         }

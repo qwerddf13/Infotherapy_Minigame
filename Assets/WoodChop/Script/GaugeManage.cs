@@ -28,13 +28,13 @@ public class GaugeManage : MonoBehaviour
     void OnEnable()
     {
         Player.OnCutWood += RegainGauge;
-        GameManage.OnGameOver += () => StopCoroutine(DoGaugeDecay());
+        GameManage.OnGameOver += GameOver;
     }
 
     void OnDisable()
     {
         Player.OnCutWood -= RegainGauge;
-        GameManage.OnGameOver -= () => StopCoroutine(DoGaugeDecay());
+        GameManage.OnGameOver -= GameOver;
     }
 
     IEnumerator DoGaugeDecay()
@@ -53,6 +53,7 @@ public class GaugeManage : MonoBehaviour
         }
 
         OnOver_Gauge?.Invoke();
+        Debug.Log("게이지 게임 오버.");
         yield break;
     }
 
@@ -83,5 +84,10 @@ public class GaugeManage : MonoBehaviour
     void SetGauge(float gauge)
     {
         gaugeRatio = currGauge / maxGauge;
+    }
+
+    void GameOver()
+    {
+        gaugeDecay = 0;
     }
 }

@@ -20,13 +20,20 @@ public class GameManage : MonoBehaviour
 
     void OnEnable()
     {
-        Player.OnOver_Player += () => OnGameOver?.Invoke();
-        GaugeManage.OnOver_Gauge += () => OnGameOver?.Invoke();
+        Debug.Log("게임매니저 구독 시도");
+        Player.OnOver_Player += GeneralGameOver;
+        GaugeManage.OnOver_Gauge += GeneralGameOver;
     }
 
     void OnDisable()
     {
-        Player.OnOver_Player -= () => OnGameOver?.Invoke();
-        GaugeManage.OnOver_Gauge -= () => OnGameOver?.Invoke();
+        Player.OnOver_Player -= GeneralGameOver;
+        GaugeManage.OnOver_Gauge -= GeneralGameOver;
+    }
+
+    void GeneralGameOver()
+    {
+        OnGameOver?.Invoke();
+        Debug.Log("메인 게임 오버.");
     }
 }
