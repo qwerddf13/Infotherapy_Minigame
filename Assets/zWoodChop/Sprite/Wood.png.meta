@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: de8f09db25c6a884ab17f7a54c842310
+guid: b99413d691624d44fa55afda54326b7a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -93,17 +93,72 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GaugeBar_0
+      name: Wood_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e2bd87ea92903c4bb7e0fc4b1bd6e31
+      internalID: -144671483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wood_1
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42405b16911c9204b9d3420ecf7a492f
+      internalID: -1625977546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wood_2
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
-        height: 64
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,41 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 57f1c3f641799ba4c837f7bf5d69130e
-      internalID: -1726961892
+      spriteID: 3c6a29af59167e34b82de216b421f3f1
+      internalID: 788354822
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GaugeBar_1
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 50245f755a5001e41b11d5177e8a6221
-      internalID: 632294662
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GaugeBar_2
+      name: Wood_3
       rect:
         serializedVersion: 2
         x: 128
         y: 0
-        width: 64
-        height: 64
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,8 +187,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dff0243622ecfa245a30c56757a495df
-      internalID: 174079527
+      spriteID: 031652430d715e149badee15c7551772
+      internalID: 1026003513
       vertices: []
       indices: 
       edges: []
@@ -170,9 +204,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      GaugeBar_0: -1726961892
-      GaugeBar_1: 632294662
-      GaugeBar_2: 174079527
+      Wood_0: -144671483
+      Wood_1: -1625977546
+      Wood_2: 788354822
+      Wood_3: 1026003513
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

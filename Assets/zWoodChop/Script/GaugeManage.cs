@@ -9,8 +9,8 @@ public class GaugeManage : MonoBehaviour
 
     public float maxGauge = 1000;
     public float currGauge = 1000;
-    float gaugeDecay = 0.1f;
-    float gaugeRegain = 20;
+    float gaugeDecay = 0.6f;
+    float gaugeRegain = 70;
     public float gaugeRatio = 0f;
     void Start()
     {
@@ -41,7 +41,7 @@ public class GaugeManage : MonoBehaviour
     {
         while (currGauge > 0)
         {
-            currGauge -= gaugeDecay;
+            currGauge -= gaugeDecay; //Update에서 * Time.deltaTime;
 
             if (currGauge > maxGauge)
             {
@@ -61,17 +61,26 @@ public class GaugeManage : MonoBehaviour
     {
         yield return null;
 
+        yield return new WaitUntil(() => scoreManage.score > 50);
+        gaugeDecay = 0.8f;
+
         yield return new WaitUntil(() => scoreManage.score > 100);
-        gaugeDecay = 0.2f;
+        gaugeDecay = 1.0f;
 
         yield return new WaitUntil(() => scoreManage.score > 200);
-        gaugeDecay = 0.24f;
+        gaugeDecay = 1.2f;
 
         yield return new WaitUntil(() => scoreManage.score > 300);
-        gaugeDecay = 0.28f;
+        gaugeDecay = 1.4f;
 
         yield return new WaitUntil(() => scoreManage.score > 500);
-        gaugeDecay = 0.34f;
+        gaugeDecay = 1.6f;
+
+        yield return new WaitUntil(() => scoreManage.score > 600);
+        gaugeDecay = 1.8f;
+
+        yield return new WaitUntil(() => scoreManage.score > 700);
+        gaugeDecay = 2.0f;
 
         yield break;
     }
