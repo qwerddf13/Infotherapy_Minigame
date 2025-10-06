@@ -17,6 +17,7 @@ public class ScoreText : MonoBehaviour
     void Update()
     {
         scoreText.text = $"Score: {scoreManage.score}";
+        // text.text = textScene[textNumber - 1]
     }
 
 }
