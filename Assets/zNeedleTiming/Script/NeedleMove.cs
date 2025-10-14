@@ -8,33 +8,38 @@ public class NeedleMove : MonoBehaviour
     public int maxDegree = 60;
     public int absNeedleSpeed = 10;
     int needleDirection = -1;
+    bool isGameRunning = true;
 
 
     void Start()
     {
         transform.rotation = Quaternion.Euler(0, 0, maxDegree);
+        StartCoroutine(DoChangeDirection());
     }
 
     void Update()
     {
         transform.Rotate(new Vector3(0, 0, absNeedleSpeed * needleDirection) * Time.deltaTime);
-        ChangeDirection();
-        Debug.Log(transform.rotation.eulerAngles.z);
+        if (Input.GetKeyDown(KeyCode.Keypad0))
+        {
+            isGameRunning = false;
+        }
     }
 
-    void ChangeDirection()
+    IEnumerator DoChangeDirection()
     {
-        if (transform.rotation.eulerAngles.z >= maxDegree)
+        while (isGameRunning)
         {
+            yield return new WaitUntil(() => transform.rotation.eulerAngles.z < (360 - maxDegree) && transform.rotation.eulerAngles.z > 180);
+            transform.rotation = Quaternion.Euler(0, 0, 360 - maxDegree);
+            needleDirection = 1;
+            Debug.Log("방향이 반시계방향(1)로 바뀜");
+
+            yield return new WaitUntil(() => transform.rotation.eulerAngles.z > maxDegree && transform.rotation.eulerAngles.z < 180);
             transform.rotation = Quaternion.Euler(0, 0, maxDegree);
             needleDirection = -1;
             Debug.Log("방향이 시계방향(-1)로 바뀜");
         }
-        else if (transform.rotation.eulerAngles.z <= -maxDegree)
-        {
-            transform.rotation = Quaternion.Euler(0, 0, -maxDegree);
-            needleDirection = 1;
-            Debug.Log("방향이 반시계방향(1)로 바뀜");
-        }
+        yield break;
     }
 }
