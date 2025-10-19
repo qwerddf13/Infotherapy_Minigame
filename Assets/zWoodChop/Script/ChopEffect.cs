@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChopEffectManage : MonoBehaviour
+public class ChopEffect : MonoBehaviour
 {
-    public GameObject chopEffect;
+    // 오류 있음: 퍼펙트때만 이펙트 나옴. 아마 꽉찬 게이지 감지 관련 문제로 추정.
     public Animator animator;
     public GaugeManage gaugeManage;
+    public SpriteRenderer spriteRenderer;
     void Start()
     {
 
@@ -15,7 +16,10 @@ public class ChopEffectManage : MonoBehaviour
 
     void Update()
     {
-
+        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        {
+            spriteRenderer.enabled = false;
+        }
     }
 
     void OnEnable()
@@ -30,7 +34,7 @@ public class ChopEffectManage : MonoBehaviour
 
     void ShowEffect(bool _)
     {
-        chopEffect.SetActive(true);
+        spriteRenderer.enabled = true;
         if (gaugeManage.isPerfectLast == true)
         {
             animator.SetBool("isPerfect", true);
@@ -40,11 +44,5 @@ public class ChopEffectManage : MonoBehaviour
             animator.SetBool("isPerfect", false);
         }
         animator.SetTrigger("Chop");
-        StartCoroutine(DoHideEffect());
-    }
-    IEnumerator DoHideEffect()
-    {
-        yield return new WaitForSeconds(0.12f);
-        chopEffect.SetActive(false);
     }
 }
