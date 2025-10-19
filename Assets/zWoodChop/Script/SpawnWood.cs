@@ -33,7 +33,7 @@ public class SpawnWood : MonoBehaviour
         Player.OnCutWood -= DoSpawnWood;
     }
 
-    public void DoSpawnWood()
+    public void DoSpawnWood(bool _)
     {
         if (woodNums.Count >= 10)
             woodNums.RemoveAt(0);
@@ -57,7 +57,7 @@ public class SpawnWood : MonoBehaviour
         {
             transform.Translate(new Vector2(0, 1));
             toSetWoodNum++;
-            DoSpawnWood();
+            DoSpawnWood(true);
             yield return null;
         }
         Debug.Log(string.Join(",", woodNums));

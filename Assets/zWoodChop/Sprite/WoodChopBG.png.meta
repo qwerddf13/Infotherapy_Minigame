@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 49db48512e409034e90f659fd66cfec5
+guid: 3db9aa698e7bd154e97d96a6c18cb84d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,55 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Wood 1_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 128
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 916034f69d1c04d43980473afb69e31c
-      internalID: -1230448180
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Wood 1_1
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 128
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e63be53ebe3535447865835c013ca881
-      internalID: 105458134
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Wood 1_2
+      name: WoodChopBG_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 128
-        height: 128
+        width: 288
+        height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,20 +111,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0254c00cc262ea94d8721a49e3a16a6e
-      internalID: 573802723
+      spriteID: 446111322b7dbb44e942d1c458a9d0c2
+      internalID: 1292959957
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wood 1_3
+      name: WoodChopBG_1
       rect:
         serializedVersion: 2
-        x: 128
+        x: 288
         y: 0
-        width: 128
-        height: 128
+        width: 288
+        height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,8 +132,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6b4930d1927551248819a02f4dc3fc05
-      internalID: 895309715
+      spriteID: eb85e9c57960e914fb28444d2f4cf07f
+      internalID: -2130790488
       vertices: []
       indices: 
       edges: []
@@ -191,10 +149,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Wood 1_0: -1230448180
-      Wood 1_1: 105458134
-      Wood 1_2: 573802723
-      Wood 1_3: 895309715
+      WoodChopBG_0: 1292959957
+      WoodChopBG_1: -2130790488
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

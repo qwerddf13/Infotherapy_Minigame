@@ -27,7 +27,7 @@ public class Chop : MonoBehaviour
         Player.OnCutWood -= DeActiveThis;
     }
 
-    void DeActiveThis()
+    void DeActiveThis(bool _)
     {
         gameObject.SetActive(false);
     }

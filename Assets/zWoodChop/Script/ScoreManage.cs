@@ -26,7 +26,7 @@ public class ScoreManage : MonoBehaviour
         Player.OnCutWood += PlusScore;
     }
 
-    void PlusScore()
+    void PlusScore(bool _)
     {
         score++;
     }

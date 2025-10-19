@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class ChopEffectManage : MonoBehaviour
 {
-    public GameObject chopEffect;   
+    public GameObject chopEffect;
+    public Animator animator;
+    public GaugeManage gaugeManage;
     void Start()
     {
 
@@ -26,16 +28,23 @@ public class ChopEffectManage : MonoBehaviour
         Player.OnCutWood -= ShowEffect;
     }
 
-    void ShowEffect()
+    void ShowEffect(bool _)
     {
         chopEffect.SetActive(true);
+        if (gaugeManage.isPerfectLast == true)
+        {
+            animator.SetBool("isPerfect", true);
+        }
+        else
+        {
+            animator.SetBool("isPerfect", false);
+        }
+        animator.SetTrigger("Chop");
         StartCoroutine(DoHideEffect());
     }
-
     IEnumerator DoHideEffect()
     {
-        yield return new WaitForSeconds(0.01f);
+        yield return new WaitForSeconds(0.12f);
         chopEffect.SetActive(false);
     }
-
 }

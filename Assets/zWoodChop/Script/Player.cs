@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
             spriteRenderer.flipX = false;
             animator.SetTrigger("chop");
             audioSource.PlayOneShot(audioSource.clip);
-            OnCutWood?.Invoke();
+            OnCutWood?.Invoke(false);
 
             if (spawnWood.woodNums[0] == 2)
             {
@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
             spriteRenderer.flipX = true;
             animator.SetTrigger("chop");
             audioSource.PlayOneShot(audioSource.clip);
-            OnCutWood?.Invoke();
+            OnCutWood?.Invoke(true);
 
             if (spawnWood.woodNums[0] == 3)
             {
@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
         }
         }
     }
-    public static event Action OnCutWood;
+    public static event Action<bool> OnCutWood;
     public static event Action OnOver_Player;
 
     void OnEnable()
