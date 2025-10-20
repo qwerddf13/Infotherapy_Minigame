@@ -12,7 +12,6 @@ public class GaugeManage : MonoBehaviour
     float gaugeDecay = 100f;
     float gaugeRegain = 70;
     public float gaugeRatio = 0f;
-    public bool isPerfectLast = false;
 
     void Start()
     {
@@ -26,6 +25,7 @@ public class GaugeManage : MonoBehaviour
     }
 
     public static event Action OnOver_Gauge;
+    public static event Action OnPerfectChop;
 
     void OnEnable()
     {
@@ -86,14 +86,10 @@ public class GaugeManage : MonoBehaviour
     {
         currGauge += gaugeRegain;
 
-        if (currGauge > maxGauge)
+        if (currGauge >= maxGauge)
         {
             currGauge = maxGauge;
-            isPerfectLast = true;
-        }
-        else
-        {
-            isPerfectLast = false;
+            OnPerfectChop?.Invoke();
         }
     }
 

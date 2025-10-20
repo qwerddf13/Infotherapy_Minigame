@@ -35,10 +35,10 @@ public class Wood : MonoBehaviour
 
     void GetChop(bool isPlayerFlip)
     {
+        spriteRenderer.sortingOrder -= 1;
+
         if (woodNum == 1)
         {
-            spriteRenderer.sortingOrder = -1;
-
             if (isPlayerFlip == false)
             {
                 StartCoroutine(DoChoppedFall(1));
@@ -54,30 +54,25 @@ public class Wood : MonoBehaviour
         {
             if (woodNum != 0)
             {
-                StartCoroutine(DoCuttingFall());
+                DoCuttingFall();
                 woodNum--;
             }
         }
     }
 
-    IEnumerator DoCuttingFall()
+    void DoCuttingFall()
     {
-        for (int i = 0; i < 40; i++)
-        {
-            transform.Translate(new Vector2(0, -0.025f));
-            yield return null;
-        }
-
-        yield break;
+        transform.Translate(new Vector2(0, -1));
     }
 
     IEnumerator DoChoppedFall(int direction_X)
     {
-        float gravity = 22;
+        spriteRenderer.color = new Color(1, 1, 1, 0.8f);
+        float gravity = 15;
         while (transform.position.y > -7)
         {
-            gravity -= 0.1f;
-            transform.Translate(new Vector2(8.5f * direction_X, gravity) * Time.deltaTime);
+            gravity -= 25f * Time.deltaTime;
+            transform.Translate(new Vector2(6 * direction_X, gravity) * Time.deltaTime);
             yield return null;
         }
 
