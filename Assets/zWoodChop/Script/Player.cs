@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public Animator animator;
     public AudioSource audioSource;
     public SpawnWood spawnWood;
+    public ScreenShake screenShake;
     bool isGameRunning = true;
 
     void Start()
@@ -25,8 +26,12 @@ public class Player : MonoBehaviour
         {
             transform.position = new Vector2(-1.5f, transform.position.y);
             spriteRenderer.flipX = false;
+            
             animator.SetTrigger("chop");
             audioSource.PlayOneShot(audioSource.clip);
+
+            //screenShake.ShakeForTime(0.05f);
+
             OnCutWood?.Invoke(false);
 
             if (spawnWood.woodNums[0] == 2)
@@ -39,8 +44,12 @@ public class Player : MonoBehaviour
         {
             transform.position = new Vector2(1.5f, transform.position.y);
             spriteRenderer.flipX = true;
+            
             animator.SetTrigger("chop");
             audioSource.PlayOneShot(audioSource.clip);
+            
+            //screenShake.ShakeForTime(0.05f);
+
             OnCutWood?.Invoke(true);
 
             if (spawnWood.woodNums[0] == 3)
