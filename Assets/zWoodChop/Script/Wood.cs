@@ -67,8 +67,8 @@ public class Wood : MonoBehaviour
 
     IEnumerator DoChoppedFall(int direction_X)
     {
-        spriteRenderer.color = new Color(1, 1, 1, 0.8f);
-        float gravity = 15;
+        spriteRenderer.color = new Color(1, 1, 1, 0.95f);
+        float gravity = 10;
         while (transform.position.y > -7)
         {
             gravity -= 25f * Time.deltaTime;
