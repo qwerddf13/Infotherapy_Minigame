@@ -7,12 +7,17 @@ using UnityEngine;
 public class Wood : MonoBehaviour
 {
     public SpriteRenderer spriteRenderer;
+    Material originMaterial;
+    public Material flashMaterial;
+
     public Sprite[] sprites;
     int woodNum;
     int spriteNum;
     void Start()
     {
         SpawnWood spawnWood = GameObject.Find("WoodSpawner").GetComponent<SpawnWood>();
+        originMaterial = spriteRenderer.material;
+
         woodNum = spawnWood.toSetWoodNum;
         spriteNum = spawnWood.toSetSpriteNum;
         spriteRenderer.sprite = sprites[spriteNum];
@@ -54,20 +59,31 @@ public class Wood : MonoBehaviour
         {
             if (woodNum != 0)
             {
-                DoCuttingFall();
+                StartCoroutine(DoCuttingFall());
                 woodNum--;
             }
         }
     }
 
-    void DoCuttingFall()
+    IEnumerator DoCuttingFall()
     {
+        spriteRenderer.material = flashMaterial;
+        yield return new WaitForSeconds(0.01f);
+        spriteRenderer.material = originMaterial;
+
         transform.Translate(new Vector2(0, -1));
+        
+        yield break;
     }
 
     IEnumerator DoChoppedFall(int direction_X)
     {
         spriteRenderer.color = new Color(1, 1, 1, 0.95f);
+
+        spriteRenderer.material = flashMaterial;
+        yield return new WaitForSeconds(0.01f);
+        spriteRenderer.material = originMaterial;
+
         float gravity = 10;
 
         while (transform.position.y > -7)

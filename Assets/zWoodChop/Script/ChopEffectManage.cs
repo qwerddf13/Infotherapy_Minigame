@@ -5,7 +5,9 @@ using UnityEngine;
 public class ChopEffectManage : MonoBehaviour
 {
     public GameObject chopEffect;
-    public Animator animator;
+    public GameObject chopEffectNormal;
+    public Animator animator_Perfect;
+    public Animator animator_Normal;
     public GaugeManage gaugeManage;
 
     void Start()
@@ -27,10 +29,10 @@ public class ChopEffectManage : MonoBehaviour
     {
         GaugeManage.OnPerfectChop -= ShowEffect;
     }
-    
+
     void ShowEffect()
     {
         chopEffect.SetActive(true);
-        animator.SetTrigger("Chop");
+        animator_Perfect.SetTrigger("Chop");
     }
 }

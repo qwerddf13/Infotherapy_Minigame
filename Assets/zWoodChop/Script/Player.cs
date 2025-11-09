@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
             animator.SetTrigger("chop");
             audioSource.PlayOneShot(audioSource.clip);
 
-            //screenShake.ShakeForTime(0.05f);
+            screenShake.ShakeForTime(0.02f);
 
             OnCutWood?.Invoke(false);
 
@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
             animator.SetTrigger("chop");
             audioSource.PlayOneShot(audioSource.clip);
             
-            //screenShake.ShakeForTime(0.05f);
+            screenShake.ShakeForTime(0.02f);
 
             OnCutWood?.Invoke(true);
 

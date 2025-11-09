@@ -441,7 +441,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chopEffect: {fileID: 1818910663}
-  animator: {fileID: 1818910666}
+  chopEffectNormal: {fileID: 1818910663}
+  animator_Perfect: {fileID: 1818910666}
+  animator_Normal: {fileID: 1818910666}
   gaugeManage: {fileID: 199320861}
 --- !u!1 &519420028
 GameObject:
