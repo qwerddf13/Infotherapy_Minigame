@@ -144,6 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 2824378912630311781}
+  flashMaterial: {fileID: 2100000, guid: 37c947ffa93c9ca4a8bb33ba956e49a2, type: 2}
   sprites:
   - {fileID: -1230448180, guid: 49db48512e409034e90f659fd66cfec5, type: 3}
   - {fileID: 105458134, guid: 49db48512e409034e90f659fd66cfec5, type: 3}
