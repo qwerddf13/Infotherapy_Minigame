@@ -25,7 +25,7 @@ public class GaugeManage : MonoBehaviour
     }
 
     public static event Action OnOver_Gauge;
-    public static event Action OnPerfectChop;
+    public static event Action<bool> OnIsPerfectChop;
 
     void OnEnable()
     {
@@ -89,7 +89,11 @@ public class GaugeManage : MonoBehaviour
         if (currGauge >= maxGauge)
         {
             currGauge = maxGauge;
-            OnPerfectChop?.Invoke();
+            OnIsPerfectChop?.Invoke(true);
+        }
+        else
+        {
+            OnIsPerfectChop?.Invoke(false);
         }
     }
 

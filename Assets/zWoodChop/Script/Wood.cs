@@ -67,9 +67,9 @@ public class Wood : MonoBehaviour
 
     IEnumerator DoCuttingFall()
     {
-        spriteRenderer.material = flashMaterial;
+        //spriteRenderer.material = flashMaterial;
         yield return new WaitForSeconds(0.01f);
-        spriteRenderer.material = originMaterial;
+        //spriteRenderer.material = originMaterial;
 
         transform.Translate(new Vector2(0, -1));
         

@@ -22,15 +22,15 @@ public class ChopEffectManage : MonoBehaviour
 
     void OnEnable()
     {
-        GaugeManage.OnPerfectChop += ShowEffect;
+        GaugeManage.OnIsPerfectChop += ShowEffect;
     }
 
     void OnDisable()
     {
-        GaugeManage.OnPerfectChop -= ShowEffect;
+        GaugeManage.OnIsPerfectChop -= ShowEffect;
     }
 
-    void ShowEffect()
+    void ShowEffect(bool _)
     {
         chopEffect.SetActive(true);
         animator_Perfect.SetTrigger("Chop");

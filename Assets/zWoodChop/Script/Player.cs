@@ -15,7 +15,6 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        audioSource.time = 0.1f;
         isGameRunning = true;
     }
 
@@ -28,7 +27,6 @@ public class Player : MonoBehaviour
             spriteRenderer.flipX = false;
             
             animator.SetTrigger("chop");
-            audioSource.PlayOneShot(audioSource.clip);
 
             screenShake.ShakeForTime(0.02f);
 
@@ -46,7 +44,6 @@ public class Player : MonoBehaviour
             spriteRenderer.flipX = true;
             
             animator.SetTrigger("chop");
-            audioSource.PlayOneShot(audioSource.clip);
             
             screenShake.ShakeForTime(0.02f);
 
