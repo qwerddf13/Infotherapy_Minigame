@@ -22,7 +22,7 @@ public class ScreenShake : MonoBehaviour
             transform.position = initialPos;
             transform.position = Random.insideUnitSphere * shakeAmount;
             transform.position = new Vector3(transform.position.x, transform.position.y, -10);
-            shakeTime -= Time.deltaTime;
+            shakeTime -= Time.unscaledDeltaTime;
         }
         else
         {

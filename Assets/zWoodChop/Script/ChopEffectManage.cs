@@ -30,9 +30,12 @@ public class ChopEffectManage : MonoBehaviour
         GaugeManage.OnIsPerfectChop -= ShowEffect;
     }
 
-    void ShowEffect(bool _)
+    void ShowEffect(bool isPerfect)
     {
-        chopEffect.SetActive(true);
-        animator_Perfect.SetTrigger("Chop");
+        if (isPerfect == true)
+        {
+            chopEffect.SetActive(true);
+            animator_Perfect.SetTrigger("Chop");
+        }
     }
 }

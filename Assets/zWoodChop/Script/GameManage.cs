@@ -34,6 +34,18 @@ public class GameManage : MonoBehaviour
     void GeneralGameOver()
     {
         OnGameOver?.Invoke();
+
+        StartCoroutine(DoGameOverTimeStop());
+
         Debug.Log("메인 게임 오버.");
+    }
+
+    IEnumerator DoGameOverTimeStop()
+    {
+        Time.timeScale = 0.15f;
+        yield return new WaitForSecondsRealtime(2);
+        Time.timeScale = 1;
+
+        yield break;
     }
 }

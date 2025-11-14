@@ -8,7 +8,6 @@ public class Player : MonoBehaviour
 {
     public SpriteRenderer spriteRenderer;
     public Animator animator;
-    public AudioSource audioSource;
     public SpawnWood spawnWood;
     public ScreenShake screenShake;
     bool isGameRunning = true;
@@ -35,6 +34,7 @@ public class Player : MonoBehaviour
             if (spawnWood.woodNums[0] == 2)
             {
                 OnOver_Player?.Invoke();
+                animator.SetTrigger("dead");
                 Debug.Log("플레이어 게임 오버.");
             }
         }
@@ -52,6 +52,7 @@ public class Player : MonoBehaviour
             if (spawnWood.woodNums[0] == 3)
             {
                 OnOver_Player?.Invoke();
+                animator.SetTrigger("dead");
                 Debug.Log("플레이어 게임 오버.");
             }
         }
@@ -72,7 +73,6 @@ public class Player : MonoBehaviour
 
     void GameOver()
     {
-        spriteRenderer.flipY = true;
         isGameRunning = false;
     }
 }

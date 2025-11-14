@@ -26,7 +26,7 @@ public class ParticleManage : MonoBehaviour
 
     void SpawnParticle(bool _)
     {
-        for (int i = 0; i < 7; i++) 
+        for (int i = 0; i < 4; i++) 
         { 
             Instantiate(chopParticle);
         }
