@@ -34,7 +34,7 @@ public class ResultScore : MonoBehaviour
         for (int i = 0; i <= scoreManage.score; i++)
         {
             resultScoreText.text = $"{i}";
-            yield return new WaitForSeconds(0.01f);
+            yield return null;
         }
 
         resultScoreText.text = $"{scoreManage.score}";

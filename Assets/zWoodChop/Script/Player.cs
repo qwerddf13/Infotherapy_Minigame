@@ -34,7 +34,6 @@ public class Player : MonoBehaviour
             if (spawnWood.woodNums[0] == 2)
             {
                 OnOver_Player?.Invoke();
-                //animator.SetTrigger("dead");
                 Debug.Log("플레이어 게임 오버.");
             }
         }
@@ -52,7 +51,6 @@ public class Player : MonoBehaviour
             if (spawnWood.woodNums[0] == 3)
             {
                 OnOver_Player?.Invoke();
-                //animator.SetTrigger("dead");
                 Debug.Log("플레이어 게임 오버.");
             }
         }
@@ -113,10 +111,13 @@ public class Player : MonoBehaviour
         }
 
         gameManage.isGameRunning = true;
+
+        yield break;
     }
 
     void GameOver()
     {
         animator.SetTrigger("dead");
+        gameManage.isGameRunning = false;
     }
 }

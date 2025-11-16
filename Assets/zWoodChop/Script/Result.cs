@@ -28,20 +28,25 @@ public class Result : MonoBehaviour
 
         yield return new WaitForSeconds(3);
 
-        for (int i = 0; i < 450; i++){
-            rectTransform.anchoredPosition += new Vector2(0, 2f);
+        while (rectTransform.anchoredPosition.y <= 0)
+        {
+            rectTransform.anchoredPosition += new Vector2(0, 800f) * Time.deltaTime;
             yield return null;
         }
 
-        for (int i = 0; i < 100; i++){
-            rectTransform.anchoredPosition += new Vector2(0, 0.1f);
+        while (rectTransform.anchoredPosition.y <= 30)
+        {
+            rectTransform.anchoredPosition += new Vector2(0, 100f) * Time.deltaTime;
             yield return null;
         }
 
-        for (int i = 0; i < 100; i++){
-            rectTransform.anchoredPosition += new Vector2(0, -0.1f);
+        while (rectTransform.anchoredPosition.y >= 0)
+        {
+            rectTransform.anchoredPosition += new Vector2(0, -100f) * Time.deltaTime;
             yield return null;
         }
+
+        rectTransform.anchoredPosition = new Vector2(0, 0);
 
         yield break;
     }
