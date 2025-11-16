@@ -6,12 +6,13 @@ using UnityEngine;
 public class GaugeManage : MonoBehaviour
 {
     public ScoreManage scoreManage;
+    public GameManage gameManage;
 
     public float maxGauge = 1000;
     public float currGauge = 1000;
     float gaugeDecay = 100f;
     float gaugeRegain = 70;
-    public float gaugeRatio = 0f;
+    public float gaugeRatio = 1.0f;
 
     void Start()
     {
@@ -41,6 +42,8 @@ public class GaugeManage : MonoBehaviour
 
     IEnumerator DoGaugeDecay()
     {
+        yield return new WaitUntil(() => gameManage.isGameRunning == true);
+
         while (currGauge > 0)
         {
             currGauge -= gaugeDecay * Time.deltaTime; //Update에서 * Time.deltaTime;
