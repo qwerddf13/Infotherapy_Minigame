@@ -53,7 +53,15 @@ public class SpawnWood : MonoBehaviour
 
     IEnumerator DoSettingSpawn()
     {
-        for (int i = 0; i < maxWoodAmount; i++)
+        for (int i = 0; i < 2; i++)
+        {
+            transform.Translate(new Vector2(0, 1));
+            toSetWoodNum++;
+            DoSpawnWood(true);
+            yield return null;
+        }
+
+        for (int i = 0; i < maxWoodAmount - 2; i++)
         {
             transform.Translate(new Vector2(0, 1));
             toSetWoodNum++;

@@ -44,7 +44,7 @@ public class GaugeManage : MonoBehaviour
     {
         yield return new WaitUntil(() => gameManage.isGameRunning == true);
 
-        while (currGauge > 0)
+        while (currGauge > 0 && gameManage.isGameRunning)
         {
             currGauge -= gaugeDecay * Time.deltaTime; //Update에서 * Time.deltaTime;
 
