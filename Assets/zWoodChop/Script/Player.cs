@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     public SpawnWood spawnWood;
     public ScreenShake screenShake;
     public GameManage gameManage;
+    public Leaderboards leaderboards;
+    public ScoreManage scoreManage;
 
     void Start()
     {
@@ -118,6 +120,7 @@ public class Player : MonoBehaviour
     void GameOver()
     {
         animator.SetTrigger("dead");
+        leaderboards.SubmitScore("CuttingWoods", "kim", scoreManage.score);
         gameManage.isGameRunning = false;
     }
 }

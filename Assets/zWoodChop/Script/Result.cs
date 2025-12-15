@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class Result : MonoBehaviour
 {
+    public GameObject resultBox;
     public RectTransform rectTransform;
     void Start()
     {
@@ -19,35 +20,11 @@ public class Result : MonoBehaviour
 
     void OnEnable()
     {
-        GameManage.OnGameOver += () => StartCoroutine(DoShowResult());
+        GameManage.OnGameOver += ShowResult;
     }
 
-    IEnumerator DoShowResult()
+    void ShowResult()
     {
-        rectTransform.anchoredPosition = new Vector2(0, -900);
-
-        yield return new WaitForSeconds(3);
-
-        while (rectTransform.anchoredPosition.y <= 0)
-        {
-            rectTransform.anchoredPosition += new Vector2(0, 800f) * Time.deltaTime;
-            yield return null;
-        }
-
-        while (rectTransform.anchoredPosition.y <= 30)
-        {
-            rectTransform.anchoredPosition += new Vector2(0, 100f) * Time.deltaTime;
-            yield return null;
-        }
-
-        while (rectTransform.anchoredPosition.y >= 0)
-        {
-            rectTransform.anchoredPosition += new Vector2(0, -100f) * Time.deltaTime;
-            yield return null;
-        }
-
-        rectTransform.anchoredPosition = new Vector2(0, 0);
-
-        yield break;
+        LeanTween.moveY(rectTransform, 100f, 2f).setEase(LeanTweenType.easeOutBack).setDelay(3f);
     }
 }
