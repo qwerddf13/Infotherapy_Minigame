@@ -15,7 +15,7 @@ public class EndCard : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(DoEndCardDisappear());
+        EndCardDisappear();
     }
 
     void Update()
@@ -25,7 +25,7 @@ public class EndCard : MonoBehaviour
 
     void OnEnable()
     {
-        GameManage.OnGameOver += () => StartCoroutine(DoEndCardAppear());
+        GameManage.OnGameOver += EndCardAppear;
     }
 
     void OnDisable()
@@ -33,33 +33,13 @@ public class EndCard : MonoBehaviour
 
     }
 
-    IEnumerator DoEndCardDisappear()
+    void EndCardDisappear()
     {
-        yield return new WaitForSeconds(0.5f);
-
-        for (float i = 1.0f; i >= 0f; i -= 1.0f * Time.deltaTime)
-        {
-            endCard.color = new Color(0, 0, 0, i);
-            yield return null;
-        }
-
-        endCard.color = new Color(0, 0, 0, 0.0f);
-
-        yield break;
+        LeanTween.alpha(gameObject, 0.9f, 1f).setDelay(0.5f);
     }
 
-    IEnumerator DoEndCardAppear()
+    void EndCardAppear()
     {
-        yield return new WaitForSeconds(2);
-
-        for (float i = 0f; i < 0.9f; i += 0.8f * Time.deltaTime)
-        {
-            endCard.color = new Color(0, 0, 0, i);
-            yield return null;
-        }
-
-        endCard.color = new Color(0, 0, 0, 0.9f);
-
-        yield break;
+        LeanTween.alpha(gameObject, 0.9f, 1f).setDelay(2f);
     }
 }
