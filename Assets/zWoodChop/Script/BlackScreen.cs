@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlackScreen : MonoBehaviour
+public class BlackScreenWoodChop : MonoBehaviour
 {
     GameObject blackScreen;
     void Start()
