@@ -17,7 +17,17 @@ public class Leaderboards : MonoBehaviour
     {
         try
         {
-            await LeaderboardsService.Instance.AddPlayerScoreAsync(leaderboards, score);// public 생각
+            await LeaderboardsService.Instance.AddPlayerScoreAsync(
+                leaderboards, 
+                score, 
+                new AddPlayerScoreOptions
+                {
+                    Metadata = new Dictionary<string,string>
+                    {
+                        {"playerName", name}
+                    }
+                }
+                );
             Debug.Log($"점수 제출. 이름: {name}, 점수:{score}");
 
             if (name == null || score < 0)

@@ -25,6 +25,6 @@ public class Result : MonoBehaviour
 
     void ShowResult()
     {
-        LeanTween.moveY(rectTransform, 100f, 2f).setEase(LeanTweenType.easeOutBack).setDelay(3f);
+        LeanTween.moveY(rectTransform, 100f, 2f).setEase(LeanTweenType.easeOutQuint).setDelay(3f);
     }
 }
