@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class ChopEffectManage : MonoBehaviour
 {
-    public GameObject chopEffect;   
+    public GameObject chopEffect;
+    public GameObject chopEffectNormal;
+    public Animator animator_Perfect;
+    public Animator animator_Normal;
+    public GaugeManage gaugeManage;
+
     void Start()
     {
-
+        
     }
-
 
     void Update()
     {
@@ -18,24 +22,20 @@ public class ChopEffectManage : MonoBehaviour
 
     void OnEnable()
     {
-        Player.OnCutWood += ShowEffect;
+        GaugeManage.OnIsPerfectChop += ShowEffect;
     }
 
     void OnDisable()
     {
-        Player.OnCutWood -= ShowEffect;
+        GaugeManage.OnIsPerfectChop -= ShowEffect;
     }
 
-    void ShowEffect()
+    void ShowEffect(bool isPerfect)
     {
-        chopEffect.SetActive(true);
-        StartCoroutine(DoHideEffect());
+        if (isPerfect == true)
+        {
+            chopEffect.SetActive(true);
+            animator_Perfect.SetTrigger("Chop");
+        }
     }
-
-    IEnumerator DoHideEffect()
-    {
-        yield return new WaitForSeconds(0.01f);
-        chopEffect.SetActive(false);
-    }
-
 }

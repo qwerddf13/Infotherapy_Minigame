@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class GameManage : MonoBehaviour
 {
+    public bool isGameRunning = false;
     void Start()
     {
 
@@ -31,9 +32,24 @@ public class GameManage : MonoBehaviour
         GaugeManage.OnOver_Gauge -= GeneralGameOver;
     }
 
+    
+
     void GeneralGameOver()
     {
         OnGameOver?.Invoke();
+        isGameRunning = false;
+
+        StartCoroutine(DoGameOverTimeStop());
+
         Debug.Log("메인 게임 오버.");
+    }
+
+    IEnumerator DoGameOverTimeStop()
+    {
+        Time.timeScale = 0.15f;
+        yield return new WaitForSecondsRealtime(2);
+        Time.timeScale = 1;
+
+        yield break;
     }
 }

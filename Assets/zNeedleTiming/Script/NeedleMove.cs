@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -26,6 +27,8 @@ public class NeedleMove : MonoBehaviour
         }
     }
 
+    public static event Action<bool> OnIsNeedleGoingRight;
+
     IEnumerator DoChangeDirection()
     {
         while (isGameRunning)
@@ -33,11 +36,13 @@ public class NeedleMove : MonoBehaviour
             yield return new WaitUntil(() => transform.rotation.eulerAngles.z < (360 - maxDegree) && transform.rotation.eulerAngles.z > 180);
             transform.rotation = Quaternion.Euler(0, 0, 360 - maxDegree);
             needleDirection = 1;
+            OnIsNeedleGoingRight?.Invoke(true);
             Debug.Log("방향이 반시계방향(1)로 바뀜");
 
             yield return new WaitUntil(() => transform.rotation.eulerAngles.z > maxDegree && transform.rotation.eulerAngles.z < 180);
             transform.rotation = Quaternion.Euler(0, 0, maxDegree);
             needleDirection = -1;
+            OnIsNeedleGoingRight?.Invoke(false);
             Debug.Log("방향이 시계방향(-1)로 바뀜");
         }
         yield break;

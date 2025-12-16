@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b99413d691624d44fa55afda54326b7a
+guid: 49db48512e409034e90f659fd66cfec5
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -93,24 +93,11 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Wood_0
+      name: Wood 1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +111,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7e2bd87ea92903c4bb7e0fc4b1bd6e31
-      internalID: -144671483
+      spriteID: 916034f69d1c04d43980473afb69e31c
+      internalID: -1230448180
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wood_1
+      name: Wood 1_1
       rect:
         serializedVersion: 2
         x: 128
@@ -145,14 +132,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 42405b16911c9204b9d3420ecf7a492f
-      internalID: -1625977546
+      spriteID: e63be53ebe3535447865835c013ca881
+      internalID: 105458134
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wood_2
+      name: Wood 1_2
       rect:
         serializedVersion: 2
         x: 0
@@ -166,14 +153,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3c6a29af59167e34b82de216b421f3f1
-      internalID: 788354822
+      spriteID: 0254c00cc262ea94d8721a49e3a16a6e
+      internalID: 573802723
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wood_3
+      name: Wood 1_3
       rect:
         serializedVersion: 2
         x: 128
@@ -187,8 +174,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 031652430d715e149badee15c7551772
-      internalID: 1026003513
+      spriteID: 6b4930d1927551248819a02f4dc3fc05
+      internalID: 895309715
       vertices: []
       indices: 
       edges: []
@@ -204,10 +191,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Wood_0: -144671483
-      Wood_1: -1625977546
-      Wood_2: 788354822
-      Wood_3: 1026003513
+      Wood 1_0: -1230448180
+      Wood 1_1: 105458134
+      Wood 1_2: 573802723
+      Wood 1_3: 895309715
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

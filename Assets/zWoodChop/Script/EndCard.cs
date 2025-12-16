@@ -8,9 +8,14 @@ public class EndCard : MonoBehaviour
 {
     public Image endCard;
 
+    void Awake()
+    {
+        endCard.color = new Color(0, 0, 0, 1.0f);
+    }
+
     void Start()
     {
-        
+        EndCardDisappear();
     }
 
     void Update()
@@ -20,7 +25,7 @@ public class EndCard : MonoBehaviour
 
     void OnEnable()
     {
-        GameManage.OnGameOver += () => StartCoroutine(DoEndCardAppear());
+        GameManage.OnGameOver += EndCardAppear;
     }
 
     void OnDisable()
@@ -28,9 +33,13 @@ public class EndCard : MonoBehaviour
 
     }
 
-    IEnumerator DoEndCardAppear()
+    void EndCardDisappear()
     {
-        yield return new WaitForSeconds(2);
-        
+        LeanTween.alpha(gameObject, 0.9f, 1f).setDelay(0.5f);
+    }
+
+    void EndCardAppear()
+    {
+        LeanTween.alpha(gameObject, 0.9f, 1f).setDelay(2f);
     }
 }

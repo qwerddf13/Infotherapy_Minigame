@@ -7,11 +7,11 @@ using UnityEngine.UI;
 public class ScoreText : MonoBehaviour
 {
     public TMP_Text scoreText;
-
     public ScoreManage scoreManage;
 
     void Start()
     {
+        
     }
 
     void Update()

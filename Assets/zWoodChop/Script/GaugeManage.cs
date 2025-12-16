@@ -6,12 +6,14 @@ using UnityEngine;
 public class GaugeManage : MonoBehaviour
 {
     public ScoreManage scoreManage;
+    public GameManage gameManage;
 
     public float maxGauge = 1000;
     public float currGauge = 1000;
-    float gaugeDecay = 0.6f;
+    float gaugeDecay = 100f;
     float gaugeRegain = 70;
-    public float gaugeRatio = 0f;
+    public float gaugeRatio = 1.0f;
+
     void Start()
     {
         StartCoroutine(DoGaugeDecay());
@@ -24,6 +26,7 @@ public class GaugeManage : MonoBehaviour
     }
 
     public static event Action OnOver_Gauge;
+    public static event Action<bool> OnIsPerfectChop;
 
     void OnEnable()
     {
@@ -39,14 +42,11 @@ public class GaugeManage : MonoBehaviour
 
     IEnumerator DoGaugeDecay()
     {
-        while (currGauge > 0)
-        {
-            currGauge -= gaugeDecay; //Update에서 * Time.deltaTime;
+        yield return new WaitUntil(() => gameManage.isGameRunning == true);
 
-            if (currGauge > maxGauge)
-            {
-                currGauge = maxGauge;
-            }
+        while (currGauge > 0 && gameManage.isGameRunning)
+        {
+            currGauge -= gaugeDecay * Time.deltaTime; //Update에서 * Time.deltaTime;
 
             SetGauge(currGauge);
             yield return null;
@@ -62,32 +62,42 @@ public class GaugeManage : MonoBehaviour
         yield return null;
 
         yield return new WaitUntil(() => scoreManage.score > 50);
-        gaugeDecay = 0.8f;
+        gaugeDecay = 200f;
 
         yield return new WaitUntil(() => scoreManage.score > 100);
-        gaugeDecay = 1.0f;
+        gaugeDecay = 300f;
 
         yield return new WaitUntil(() => scoreManage.score > 200);
-        gaugeDecay = 1.2f;
+        gaugeDecay = 370f;
 
         yield return new WaitUntil(() => scoreManage.score > 300);
-        gaugeDecay = 1.4f;
+        gaugeDecay = 440f;
 
         yield return new WaitUntil(() => scoreManage.score > 500);
-        gaugeDecay = 1.6f;
+        gaugeDecay = 500f;
 
         yield return new WaitUntil(() => scoreManage.score > 600);
-        gaugeDecay = 1.8f;
+        gaugeDecay = 570f;
 
         yield return new WaitUntil(() => scoreManage.score > 700);
-        gaugeDecay = 2.0f;
+        gaugeDecay = 640f;
 
         yield break;
     }
 
-    void RegainGauge()
+    void RegainGauge(bool _)
     {
         currGauge += gaugeRegain;
+
+        if (currGauge >= maxGauge)
+        {
+            currGauge = maxGauge;
+            OnIsPerfectChop?.Invoke(true);
+        }
+        else
+        {
+            OnIsPerfectChop?.Invoke(false);
+        }
     }
 
     void SetGauge(float gauge)

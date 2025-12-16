@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f696673956a82274393f8cea836da260
+guid: 956b2b6e39470844996eafc63511ce98
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -93,24 +93,11 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: WoodMan_0
+      name: WoodMan 1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +111,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b8e372a4b1102324dbf6d2c8753807e8
-      internalID: 660938034
+      spriteID: 1123171c576f2614ebc4247c8b1d66bd
+      internalID: 1319059334
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WoodMan_1
+      name: WoodMan 1_1
       rect:
         serializedVersion: 2
         x: 128
@@ -145,14 +132,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4fef72c1097adb5418c8ba3a514faf3e
-      internalID: 1963875380
+      spriteID: ad0d6f11d0f2cbb40902c45fea7c954f
+      internalID: -819857527
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WoodMan_2
+      name: WoodMan 1_2
       rect:
         serializedVersion: 2
         x: 256
@@ -166,14 +153,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 48dfaa5e68beb0544993c778ada52d66
-      internalID: -828851620
+      spriteID: 5da4f05608ef56449a0b3b8de055e5ea
+      internalID: 509634602
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WoodMan_3
+      name: WoodMan 1_3
       rect:
         serializedVersion: 2
         x: 0
@@ -187,14 +174,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 60414da34a3add34880db58dff23228e
-      internalID: 425182877
+      spriteID: 37651e5db8d2ee340a8820aaa02be6d9
+      internalID: -1377848042
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WoodMan_4
+      name: WoodMan 1_4
       rect:
         serializedVersion: 2
         x: 128
@@ -208,14 +195,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 903bb67eb92fff24cbcb8ad672ae8a54
-      internalID: -1752658171
+      spriteID: dadf9aba473885a448f108e6137f855e
+      internalID: 1806456008
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WoodMan_5
+      name: WoodMan 1_5
       rect:
         serializedVersion: 2
         x: 256
@@ -229,8 +216,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ca1729ae7cfc2c447aa03a52a0f07be9
-      internalID: -639242702
+      spriteID: 5664547a276312949bd6c86ec2ea3fc4
+      internalID: 2052295706
       vertices: []
       indices: 
       edges: []
@@ -246,12 +233,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      WoodMan_0: 660938034
-      WoodMan_1: 1963875380
-      WoodMan_2: -828851620
-      WoodMan_3: 425182877
-      WoodMan_4: -1752658171
-      WoodMan_5: -639242702
+      WoodMan 1_0: 1319059334
+      WoodMan 1_1: -819857527
+      WoodMan 1_2: 509634602
+      WoodMan 1_3: -1377848042
+      WoodMan 1_4: 1806456008
+      WoodMan 1_5: 2052295706
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

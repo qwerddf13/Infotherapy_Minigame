@@ -8,26 +8,30 @@ public class Player : MonoBehaviour
 {
     public SpriteRenderer spriteRenderer;
     public Animator animator;
-    public AudioSource audioSource;
     public SpawnWood spawnWood;
-    bool isGameRunning = true;
+    public ScreenShake screenShake;
+    public GameManage gameManage;
+    public Leaderboards leaderboards;
+    public ScoreManage scoreManage;
 
     void Start()
     {
-        audioSource.time = 0.1f;
-        isGameRunning = true;
+        StartCoroutine(DoGameStart());
     }
 
     void Update()
     {
-        if (isGameRunning == true) {
+        if (gameManage.isGameRunning == true) {
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             transform.position = new Vector2(-1.5f, transform.position.y);
             spriteRenderer.flipX = false;
+            
             animator.SetTrigger("chop");
-            audioSource.PlayOneShot(audioSource.clip);
-            OnCutWood?.Invoke();
+
+            screenShake.ShakeForTime(0.02f);
+
+            OnCutWood?.Invoke(false);
 
             if (spawnWood.woodNums[0] == 2)
             {
@@ -39,9 +43,12 @@ public class Player : MonoBehaviour
         {
             transform.position = new Vector2(1.5f, transform.position.y);
             spriteRenderer.flipX = true;
+            
             animator.SetTrigger("chop");
-            audioSource.PlayOneShot(audioSource.clip);
-            OnCutWood?.Invoke();
+            
+            screenShake.ShakeForTime(0.02f);
+
+            OnCutWood?.Invoke(true);
 
             if (spawnWood.woodNums[0] == 3)
             {
@@ -51,7 +58,7 @@ public class Player : MonoBehaviour
         }
         }
     }
-    public static event Action OnCutWood;
+    public static event Action<bool> OnCutWood;
     public static event Action OnOver_Player;
 
     void OnEnable()
@@ -64,9 +71,56 @@ public class Player : MonoBehaviour
         GameManage.OnGameOver -= GameOver;
     }
 
+    IEnumerator DoGameStart()
+    {
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow));
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            transform.position = new Vector2(-1.5f, transform.position.y);
+            spriteRenderer.flipX = false;
+            
+            animator.SetTrigger("chop");
+
+            screenShake.ShakeForTime(0.02f);
+
+            OnCutWood?.Invoke(false);
+
+            if (spawnWood.woodNums[0] == 2)
+            {
+                OnOver_Player?.Invoke();
+                //animator.SetTrigger("dead");
+                Debug.Log("플레이어 게임 오버.");
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            transform.position = new Vector2(1.5f, transform.position.y);
+            spriteRenderer.flipX = true;
+            
+            animator.SetTrigger("chop");
+            
+            screenShake.ShakeForTime(0.02f);
+
+            OnCutWood?.Invoke(true);
+
+            if (spawnWood.woodNums[0] == 3)
+            {
+                OnOver_Player?.Invoke();
+                //animator.SetTrigger("dead");
+                Debug.Log("플레이어 게임 오버.");
+            }
+        }
+
+        gameManage.isGameRunning = true;
+
+        yield break;
+    }
+
     void GameOver()
     {
-        spriteRenderer.flipY = true;
-        isGameRunning = false;
+        animator.SetTrigger("dead");
+        leaderboards.SubmitScore("CuttingWoods", "kim", scoreManage.score);
+        gameManage.isGameRunning = false;
     }
 }
