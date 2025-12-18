@@ -6,11 +6,11 @@ public class MoveInMain : MonoBehaviour
 {
     public void MoveUpward()
     {
-        LeanTween.moveLocalY(gameObject, transform.localPosition.y + 1000, 1f).setEase(LeanTweenType.easeOutQuint);
+        LeanTween.moveLocalY(gameObject, transform.localPosition.y + 1080, 1f).setEase(LeanTweenType.easeOutQuint);
     }
 
     public void MoveDownward()
     {
-        LeanTween.moveLocalY(gameObject, transform.localPosition.y - 1000, 1f).setEase(LeanTweenType.easeOutQuint);
+        LeanTween.moveLocalY(gameObject, transform.localPosition.y - 1080, 1f).setEase(LeanTweenType.easeOutQuint);
     }
 }

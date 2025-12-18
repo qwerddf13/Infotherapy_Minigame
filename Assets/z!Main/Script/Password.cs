@@ -8,15 +8,17 @@ using Unity.VisualScripting;
 
 public class Password : MonoBehaviour
 {
-    string password = "000000";
+    public string password = "000000";
     [SerializeField] TMP_InputField realText;
     [SerializeField] TMP_Text starText;
-    [SerializeField] TMP_Text placeHolder;
+
+    [SerializeField] Button acceptButton;
 
     void Awake()
     {
         realText.text = "";
         starText.text = "";
+        password = "000000";
     }
 
     void Update()
@@ -27,5 +29,17 @@ public class Password : MonoBehaviour
     public void WriteStarText()
     {
         starText.text = new string('*', realText.text.Length); 
+    }
+
+    public void CheckPassword()
+    {
+        if (realText.text == password)
+        {
+            acceptButton.interactable = true;
+        }
+        else
+        {
+            acceptButton.interactable = false;
+        }
     }
 }

@@ -7,8 +7,12 @@ using UnityEditor.Search;
 
 public class Coin : MonoBehaviour
 {
+    [SerializeField] TMP_InputField realText;
     [SerializeField] TMP_Text coinText;
     [SerializeField] TMP_Text toInsertCoinText;
+
+    [SerializeField] Button acceptButton;
+
     public static int coinAmount;
     public int toInsertCoin;
 
@@ -43,5 +47,7 @@ public class Coin : MonoBehaviour
     public void InsertCoin()
     {
         coinAmount += toInsertCoin;
+        realText.text = "";
+        acceptButton.interactable = false;
     }
 }
