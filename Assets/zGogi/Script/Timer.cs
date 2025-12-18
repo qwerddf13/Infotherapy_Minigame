@@ -10,7 +10,7 @@ public class Timer : MonoBehaviour
 
     void Update()
     {
-        elapsedTime += Timer.deltaTime;
+        elapsedTime += Time.deltaTime;
         timerText.text = elapsedTime.ToString();
     }
 }
