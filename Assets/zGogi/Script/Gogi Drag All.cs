@@ -6,7 +6,7 @@ public class GogiDragOn : MonoBehaviour
 {
     private Transform dragging = null;
     private Vector3 offset;
-
+    
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -16,6 +16,14 @@ public class GogiDragOn : MonoBehaviour
             {
                 dragging = hit.transform;
                 offset = dragging.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+
+                // 추가 분 (집으면 뒤집기)
+                Gogi gogi = dragging.GetComponent<Gogi>();
+                if (gogi != null)
+                {
+                    gogi.Flip();
+                }
             }
         }
         else if (Input.GetMouseButtonUp(0))
@@ -28,4 +36,8 @@ public class GogiDragOn : MonoBehaviour
             dragging.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
         }
     }
+
+    
+
+    
 }
