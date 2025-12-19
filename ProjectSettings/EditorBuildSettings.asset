@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/!!Scenes/!Main.unity
     guid: f72e93dc72d1f204e9ac06ce25f23e1f
+  - enabled: 1
+    path: Assets/!!Scenes/Fishing.unity
+    guid: 2e56ff5dbd1109543a4c3008f810beea
+  - enabled: 1
+    path: Assets/!!Scenes/Gogi.unity
+    guid: dc12408e2df8b5f47b34e6f561cf6ef5
   m_configObjects: {}
