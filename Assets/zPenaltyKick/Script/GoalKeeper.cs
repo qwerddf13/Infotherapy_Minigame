@@ -6,7 +6,7 @@ public class GoalKeeper : MonoBehaviour
     public float startSpeed = 3.0f;
     public float maxSpeed = 15.0f;
     public float acceleration = 0.5f;
-    public float range = 10.0f;
+    public float range = 5.0f;
 
     [Header("Target & UI")]
     public GameObject targetObj; 
@@ -19,6 +19,7 @@ public class GoalKeeper : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1f;
         startPos = transform.position;
         currentSpeed = startSpeed;
         
@@ -36,7 +37,7 @@ public class GoalKeeper : MonoBehaviour
         transform.position = startPos + new Vector3(offset, 0, 0);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject == targetObj)
         {
@@ -44,17 +45,12 @@ public class GoalKeeper : MonoBehaviour
         }
     }
 
-
     public void StopGame()
     {
         if (isStopped) return;
-
         isStopped = true;
-        Debug.Log("Target과 충돌! 골키퍼 정지.");
+        Time.timeScale = 0f; 
 
-        if (gameOverPanel != null)
-        {
-            gameOverPanel.SetActive(true);
-        }
+        if (gameOverPanel != null) gameOverPanel.SetActive(true);
     }
-}   
+}

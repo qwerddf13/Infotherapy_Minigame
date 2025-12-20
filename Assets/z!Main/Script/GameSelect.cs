@@ -14,6 +14,7 @@ public class GameSelect : MonoBehaviour
 
     [SerializeField] Button[] otherSelectButton;
     [SerializeField] Button startButton;
+    public static int myNum = 0;
 
     [SerializeField] GameObject descriptionContainer;
 
@@ -32,7 +33,9 @@ public class GameSelect : MonoBehaviour
             {
                 otherButton.interactable = false;
             }
-            startButton.interactable = true;
+
+            if (Coin.coinAmount > 0)
+                startButton.interactable = true;
 
             header.text = gameDescription.header;
             content.text = gameDescription.content;
@@ -49,23 +52,27 @@ public class GameSelect : MonoBehaviour
         }
         else
         {
-            isShowingDescription = false;
+            HideDescription(num);
+        }
+    }
 
-            foreach(Button otherButton in otherSelectButton)
-            {
-                otherButton.interactable = true;
-            }
-            startButton.interactable = false;
+    public void HideDescription(int num)
+    {
+        isShowingDescription = false;
 
-            LeanTween.cancel(gameObject);
-            LeanTween.moveLocalX(gameObject, -630 + 420 * num, 1f).setEase(LeanTweenType.easeOutQuint);
-            LeanTween.scale(gameObject, new Vector2(1f, 1f), 1f).setEase(LeanTweenType.easeOutQuint); 
-
-            LeanTween.cancel(descriptionContainer);
-            LeanTween.moveLocalX(descriptionContainer, 1400, 1f).setEase(LeanTweenType.easeOutQuint);
-            LeanTween.scale(gameObject, new Vector2(1f, 1f), 1f).setEase(LeanTweenType.easeOutQuint);
+        foreach(Button otherButton in otherSelectButton)
+        {
+            otherButton.interactable = true;
         }
 
-        //EventSystem.current.SetSelectedGameObject(null);
+        startButton.interactable = false;
+
+        LeanTween.cancel(gameObject);
+        LeanTween.moveLocalX(gameObject, -630 + 420 * num, 1f).setEase(LeanTweenType.easeOutQuint);
+        LeanTween.scale(gameObject, new Vector2(1f, 1f), 1f).setEase(LeanTweenType.easeOutQuint); 
+
+        LeanTween.cancel(descriptionContainer);
+        LeanTween.moveLocalX(descriptionContainer, 1400, 1f).setEase(LeanTweenType.easeOutQuint);
+        LeanTween.scale(descriptionContainer, new Vector2(1f, 1f), 1f).setEase(LeanTweenType.easeOutQuint);
     }
 }

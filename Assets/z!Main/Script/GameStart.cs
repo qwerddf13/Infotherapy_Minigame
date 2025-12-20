@@ -18,6 +18,11 @@ public class GameStart : MonoBehaviour
         
     }
 
+    public void StartDoChangeScene()
+    {
+        StartCoroutine(DoChangeScene());
+    }
+
     public void ChangeScene()
     {
         switch (sceneNum)
@@ -39,5 +44,14 @@ public class GameStart : MonoBehaviour
                 break;
         }
 
+    }
+
+    IEnumerator DoChangeScene()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        ChangeScene();
+
+        yield break;
     }
 }
