@@ -8,23 +8,24 @@ using UnityEditor.Search;
 public class Coin : MonoBehaviour
 {
     [SerializeField] TMP_InputField realText;
-    [SerializeField] TMP_Text coinText;
+    [SerializeField] TMP_Text coinText1;
+    [SerializeField] TMP_Text coinText2;
     [SerializeField] TMP_Text toInsertCoinText;
 
     [SerializeField] Button acceptButton;
 
-    public static int coinAmount;
+    public static int coinAmount = 0;
     public int toInsertCoin;
 
     void Awake()
     {
-        coinAmount = 0;
         toInsertCoin = 3;
     }
 
     void Update()
     {
-        coinText.text = $"현재 코인: {coinAmount}";
+        coinText1.text = $"현재 코인: {coinAmount}";
+        coinText2.text = $"현재 코인: {coinAmount}";
         toInsertCoinText.text = $"{toInsertCoin}";
     }
 
