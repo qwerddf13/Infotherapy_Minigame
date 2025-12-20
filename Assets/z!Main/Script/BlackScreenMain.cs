@@ -5,49 +5,15 @@ using UnityEngine.UI;
 
 public class BlackScreenMain : MonoBehaviour
 {
-    public Image blackScreen;
-    void Start()
+    public RectTransform blackScreen;
+
+    public void BlackScreenDisappear()
     {
-        
+        LeanTween.color(blackScreen, new Color(0, 0, 0, 0f), 1f);
     }
 
-    void Update()
+    public void BlackScreenAppear()
     {
-        
-    }
-
-    public void OnClickGameStart()
-    {
-        StartCoroutine(DoBlackScreenAppear());
-    }
-
-    IEnumerator DoBlackScreenDisappear()
-    {
-        yield return new WaitForSeconds(0.5f);
-
-        for (float i = 1.0f; i >= 0f; i -= 1.0f * Time.deltaTime)
-        {
-            blackScreen.color = new Color(0, 0, 0, i);
-            yield return null;
-        }
-
-        blackScreen.color = new Color(0, 0, 0, 0.0f);
-
-        yield break;
-    }
-
-    IEnumerator DoBlackScreenAppear()
-    {
-        yield return new WaitForSeconds(0.5f);
-
-        for (float i = 0f; i <= 1f; i += 1f * Time.deltaTime)
-        {
-            blackScreen.color = new Color(0, 0, 0, i);
-            yield return null;
-        }
-
-        blackScreen.color = new Color(0, 0, 0, 1f);
-
-        yield break;
+        LeanTween.color(blackScreen, new Color(0, 0, 0, 1f), 1f);
     }
 }
