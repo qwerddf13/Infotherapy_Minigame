@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
+
+using Dan.Main;
 
 public class ScoreManage : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class ScoreManage : MonoBehaviour
 
     void OnDisable()
     {
-        Player.OnCutWood += PlusScore;
+        Player.OnCutWood -= PlusScore;
     }
 
     void PlusScore(bool _)

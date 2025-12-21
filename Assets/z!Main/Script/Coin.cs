@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEditor.Search;
 
 public class Coin : MonoBehaviour
 {
@@ -13,6 +12,8 @@ public class Coin : MonoBehaviour
     [SerializeField] TMP_Text toInsertCoinText;
 
     [SerializeField] Button acceptButton;
+    
+    [SerializeField] AudioSource insertCoinSound;
 
     public static int coinAmount = 0;
     public int toInsertCoin;
@@ -47,6 +48,8 @@ public class Coin : MonoBehaviour
 
     public void InsertCoin()
     {
+        insertCoinSound.Play();
+
         coinAmount += toInsertCoin;
         realText.text = "";
         acceptButton.interactable = false;
