@@ -11,15 +11,6 @@ public class BoatMovement : MonoBehaviour
     void Update()
     {
         // 1. 매 프레임마다 오른쪽(Vector3.right)으로 이동
-        transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
-
-        // 2. 만약 배가 오른쪽 끝(endX)을 넘어가면 다시 왼쪽 끝(startX)으로 보냄
-        // 이 로직을 넣으면 배가 무한히 순환하며 움직입니다.
-        if (transform.position.x > endX)
-        {
-            Vector3 newPos = transform.position;
-            newPos.x = startX;
-            transform.position = newPos;
-        }
+        transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
     }
 }
