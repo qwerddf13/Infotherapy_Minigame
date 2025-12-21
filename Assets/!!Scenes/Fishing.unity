@@ -266,6 +266,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 614667824}
+  - component: {fileID: 614667825}
   - component: {fileID: 614667823}
   m_Layer: 0
   m_Name: boat
@@ -335,7 +336,7 @@ Transform:
   m_GameObject: {fileID: 614667822}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 26.4, y: 2.21, z: 0}
+  m_LocalPosition: {x: 25.01, y: 2.41, z: 0}
   m_LocalScale: {x: 0.4153, y: 0.4153, z: 0.4153}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -343,6 +344,21 @@ Transform:
   - {fileID: 1262063592}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &614667825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 614667822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e02be3afe047761478cf2dd52972fa80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 3
+  startX: 28
+  endX: -28
 --- !u!1 &716552531
 GameObject:
   m_ObjectHideFlags: 0
@@ -352,6 +368,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 716552534}
+  - component: {fileID: 716552535}
   - component: {fileID: 716552533}
   - component: {fileID: 716552532}
   m_Layer: 0
@@ -435,6 +452,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &716552535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716552531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35c484b454fc29446ac4878bbaad0b29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 614667824}
+  smoothSpeed: 0.125
+  offset: {x: 0, y: 0, z: -10}
+  minX: -28
+  maxX: 28
 --- !u!1 &840145899
 GameObject:
   m_ObjectHideFlags: 0
