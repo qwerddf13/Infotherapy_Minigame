@@ -1,12 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameStart : MonoBehaviour
 {
     public int sceneNum = 0; // 이건 GameSelect에 의해 설정됨!
+    [SerializeField] AudioSource mainBGM;
+    [SerializeField] AudioSource startSound;
 
     void Start()
     {
@@ -48,6 +48,8 @@ public class GameStart : MonoBehaviour
 
     IEnumerator DoChangeScene()
     {
+        mainBGM.Stop();
+        startSound.Play();
         yield return new WaitForSeconds(1.5f);
 
         ChangeScene();

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using TMPro.EditorUtilities;
-using Unity.VisualScripting;
 
 public class Password : MonoBehaviour
 {
