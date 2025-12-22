@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3461893802413477666}
   - component: {fileID: 5100274590698731989}
   - component: {fileID: 2529947299223318250}
+  - component: {fileID: 3480163263365352444}
   m_Layer: 0
   m_Name: BlueMarlin
   m_TagString: Untagged
@@ -47,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
+  scoreValue: 10
 --- !u!212 &5100274590698731989
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -120,3 +122,65 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!60 &3480163263365352444
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3628374248264095557}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 8, y: 8}
+    newSize: {x: 8, y: 8}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 2.3125, y: 1}
+      - {x: 2.0625, y: 0.9375}
+      - {x: 1.5625, y: 0.4375}
+      - {x: 0.0625, y: 0.6875}
+      - {x: -0.6875, y: 1.25}
+      - {x: -1, y: 1.25}
+      - {x: -1.3125, y: 1}
+      - {x: -1.5, y: 0.1875}
+      - {x: -2.375, y: 0.25}
+      - {x: -2.5, y: 0.0625}
+      - {x: -2.5, y: -0.1875}
+      - {x: -1.1875, y: -0.75}
+      - {x: 0.5, y: -1.125}
+      - {x: 1.875, y: -1.125}
+      - {x: 2.3125, y: -1.0625}
+      - {x: 2.5, y: -0.9375}
+      - {x: 2.5, y: 0.1875}
+  m_UseDelaunayMesh: 0
