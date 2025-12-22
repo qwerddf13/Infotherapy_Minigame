@@ -7,6 +7,7 @@ using System;
 using Unity.Services.Core;
 using System.Threading.Tasks;
 using TMPro;
+using System.Text;
 using Unity.Collections.LowLevel.Unsafe;
 
 public class Leaderboards : MonoBehaviour

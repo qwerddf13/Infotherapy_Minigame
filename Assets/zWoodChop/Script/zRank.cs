@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using Unity.Services.Leaderboards;
 using TMPro;
 using System.Threading.Tasks;
+using System.Text;
 
 public class Rank : MonoBehaviour
 {
@@ -29,10 +30,10 @@ public class Rank : MonoBehaviour
 
     void OnEnable()
     {
-        GameManage.OnGameOver += async () => await WriteLeaderboard(rankNum);
+        GameManage.OnGameOver += async () => await BeforeWriteLeaderboard();
     }
 
-    async Task WriteLeaderboard(int rank)
+    async Task BeforeWriteLeaderboard()
     {
         if (leaderboards != null)
         try
@@ -47,21 +48,35 @@ public class Rank : MonoBehaviour
         var myRank = await LeaderboardsService.Instance.GetPlayerScoreAsync("CuttingWoods");
         rankNum = myRank.Rank + myNum;
 
+        await WriteLeaderboard(rankNum);
+    }
+
+    async Task WriteLeaderboard(int rank)
+    {
         try
         {
             var myScore = await LeaderboardsService.Instance.GetScoresAsync("CuttingWoods", new GetScoresOptions
             {
-                Limit = 1, Offset = rank
+                Limit = 1, Offset = rank, IncludeMetadata = true
             });
 
+            string schoolNum = myScore.Results[0].Metadata;
+
+            var meta = JsonUtility.FromJson<RankMetadata>(schoolNum);
+
+            string num = meta.num;
+            
             if (myScore != null && myScore.Results.Count > 0)
             {
-                rankText.text = $"{rank + 1}";
-                nameText.text = $"{myScore.Results[0].Metadata}";
-                scoreText.text = $"{myScore.Results[0].Score}";
+                rankText.text = $"{rank + 1}위";
+                nameText.text = $"{num}";
+                scoreText.text = $"{myScore.Results[0].Score}점";
             }
             else
             {
+                rankText.text = "";
+                nameText.text = "";
+                scoreText.text = "";
                 Debug.Log("리더보드에 데이터가 없습니다.");
             }
         }
