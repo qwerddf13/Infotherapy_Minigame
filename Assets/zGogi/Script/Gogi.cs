@@ -14,6 +14,7 @@ public class Gogi : MonoBehaviour
     public float frontTime = 0f, backTime = 0f;
     public bool isOnGrill = false;
 
+    // 굽기 시간
     private SpriteRenderer sr;
     private const float cook_time = 3f;
     private const float burn_time = 5f;
@@ -53,9 +54,9 @@ public class Gogi : MonoBehaviour
     {
         float bestTime = Mathf.Max(frontTime, backTime);
 
-        if (bestTime >= burn_time) return -50; // 타면 감점
-        if (bestTime >= cook_time) return 100; // 익으면 득점
-        return 10; // 생고기는 조금
+        if (bestTime >= burn_time) return -1; // 타면 감점
+        if (bestTime >= cook_time) return 10; // 익으면 득점
+        return 1; // 생고기는 조금
     }
 
 

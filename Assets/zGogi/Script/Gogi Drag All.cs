@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GogiDragAll : MonoBehaviour
 {
-    // 클래스 이름과 타입 이름을 똑같이 GogiDragAll로 맞춰야 에러가 안 납니다.
     public static GogiDragAll instance;
 
     private Transform dragging = null;
@@ -12,11 +11,9 @@ public class GogiDragAll : MonoBehaviour
 
     void Awake()
     {
-        // 싱글톤 설정
         if (instance == null) instance = this;
     }
 
-    // Copy 스크립트에서 새 고기를 만들자마자 이 함수를 호출할 겁니다.
     public void StartDragging(Transform target)
     {
         dragging = target;
@@ -28,7 +25,6 @@ public class GogiDragAll : MonoBehaviour
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        // 1. 이미 구워지고 있는 고기를 다시 클릭할 때
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
@@ -41,13 +37,12 @@ public class GogiDragAll : MonoBehaviour
             }
         }
 
-        // 2. 마우스를 떼면 드래그 중단
         if (Input.GetMouseButtonUp(0))
         {
             dragging = null;
         }
 
-        // 3. 드래그 중일 때 위치 업데이트
+ 
         if (dragging != null)
         {
             Vector3 targetPos = (Vector3)mousePos + offset;
