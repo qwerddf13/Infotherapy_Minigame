@@ -4,65 +4,84 @@ using UnityEngine;
 
 public class Gogi : MonoBehaviour
 {
-    [Header("이미지 설정")]
-    public Sprite frontGogi;
-    public Sprite backGogi;
-    public Sprite roastfrontGogi;
-    public Sprite roastbackGogi;
+    public Sprite frontGogi, backGogi, roastfrontGogi, roastbackGogi;
+    public Sprite burnGogi;
 
-    [Header("굽기 상태")]
-    public bool isFront = true; // 현재 앞면
-    public float frontTime = 0f; // 앞면 구워진 시간
-    public float backTime = 0f; // 뒷면 구워진 시간
-    public bool isOnGrill = false; // 불판 위에 있나 확인
+
+
+    // 굽기 상태
+    public bool isFront = true;
+    public float frontTime = 0f, backTime = 0f;
+    public bool isOnGrill = false;
 
     private SpriteRenderer sr;
-    private const float cook_time = 3f; // 익는데 걸리는 시간
+    private const float cook_time = 3f;
+    private const float burn_time = 5f;
 
-    void Awake() => sr = GetComponent<SpriteRenderer>();
-
-    public void Flip()
+    void Awake()
     {
-        isFront = !isFront;
-        Visual();
+        sr = GetComponent<SpriteRenderer>();
+        ResetGogi();
     }
 
-    void Update() // 고기 구워지는 시간 + 구운 이미지로 바뀌는거
+
+
+
+    public void ResetGogi()
+    {
+        frontTime = 0f;
+        backTime = 0f;
+        isFront = true;
+        isOnGrill = false;
+        if (sr != null && frontGogi != null) sr.sprite = frontGogi;
+    }
+
+    public void Flip() { isFront = !isFront; Visual(); }
+
+    void Update()
     {
         if (isOnGrill)
         {
-            if (isFront)
-            {
-                backTime += Time.deltaTime;
-            }
-            else
-            {
-                frontTime += Time.deltaTime;
-            }
-
+            if (isFront) backTime += Time.deltaTime;
+            else frontTime += Time.deltaTime;
             Visual();
         }
     }
 
+
+    public int GetScore()
+    {
+        float bestTime = Mathf.Max(frontTime, backTime);
+
+        if (bestTime >= burn_time) return -50; // 타면 감점
+        if (bestTime >= cook_time) return 100; // 익으면 득점
+        return 10; // 생고기는 조금
+    }
+
+
+
     void Visual()
     {
-        if (isFront)
+        if (sr == null) return;
+
+        float currentTime = isFront ? frontTime : backTime;
+        Sprite normalSprite = isFront ? frontGogi : backGogi;
+        Sprite roastedSprite = isFront ? roastfrontGogi : roastbackGogi;
+
+        if (currentTime >= burn_time) // 탄 상태
         {
-            sr.sprite = (frontTime >= cook_time) ? roastfrontGogi : frontGogi;
+            sr.sprite = burnGogi;
         }
-        else
+        else if (currentTime >= cook_time) // 익은 상태
         {
-            sr.sprite = (backTime >= cook_time) ? roastbackGogi : backGogi;
+            sr.sprite = roastedSprite;
+        }
+        else // 생고기
+        {
+            sr.sprite = normalSprite;
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Grill")) isOnGrill = true;
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Grill")) isOnGrill = false;
-    }
+    private void OnTriggerEnter2D(Collider2D collision) { if (collision.CompareTag("Grill")) isOnGrill = true; }
+    private void OnTriggerExit2D(Collider2D collision) { if (collision.CompareTag("Grill")) isOnGrill = false; }
 }
