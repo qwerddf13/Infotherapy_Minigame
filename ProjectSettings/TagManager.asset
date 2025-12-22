@@ -9,6 +9,8 @@ TagManager:
   - Goal
   - GameOver
   - Origin
+  - Spear
+  - Fish
   layers:
   - Default
   - TransparentFX

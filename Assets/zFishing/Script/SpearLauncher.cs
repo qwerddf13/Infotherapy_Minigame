@@ -80,12 +80,36 @@ public class SpearLauncher : MonoBehaviour
             // 원래 위치로 복귀
             transform.localPosition = Vector3.MoveTowards(transform.localPosition, originLocalPos, returnSpeed * Time.deltaTime);
 
-            if (Vector3.Distance(transform.localPosition, originLocalPos) < 0.01f)
+            if (Vector3.Distance(transform.localPosition, originLocalPos) < 0.2f)
             {
                 transform.localPosition = originLocalPos;
                 isReturning = false;
                 // 복귀 완료 후 다시 마우스를 조준하도록 각도 초기화는 Update의 HandleAiming에서 처리됨
+                CollectFish();
+            }
+        }
+        void CollectFish()
+        {
+            Debug.Log("물고기 수집 시작!");
+        
+            // 작살 아래에 붙은 모든 자식을 검사
+            for (int i = transform.childCount - 1; i >= 0; i--)
+            {
+                Transform child = transform.GetChild(i);
+            
+                // 물고기 태그가 대소문자까지 "Fish"로 정확해야 합니다.
+                if (child.CompareTag("Fish"))
+                {
+                    FishMovement fish = child.GetComponent<FishMovement>();
+                    if (fish != null)
+                    {
+                        FScoreManager.instance.AddScore(fish.scoreValue);
+                    }
+                    Destroy(child.gameObject);
+                    Debug.Log("물고기 삭제 및 점수 획득 완료");
+                }
             }
         }
     }
+
 }
