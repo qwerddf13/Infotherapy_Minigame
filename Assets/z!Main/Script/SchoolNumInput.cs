@@ -18,7 +18,7 @@ public class SchoolNumInput : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     void Update()

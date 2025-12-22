@@ -31,8 +31,11 @@ public class ResultScore : MonoBehaviour
 
         yield return new WaitForSeconds(4.5f);
 
-        for (int i = 0; i <= scoreManage.score; i++)
+        for (int i = 0; i <= 120; i++)
         {
+            if (i <= scoreManage.score)
+                break;
+                
             resultScoreText.text = $"{i}";
             yield return null;
         }

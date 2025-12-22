@@ -120,7 +120,6 @@ public class Player : MonoBehaviour
     void GameOver()
     {
         animator.SetTrigger("dead");
-        leaderboards.SubmitScore("CuttingWoods", scoreManage.score);
         gameManage.isGameRunning = false;
     }
 }

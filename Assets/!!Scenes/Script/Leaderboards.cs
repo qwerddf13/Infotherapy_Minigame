@@ -70,7 +70,7 @@ public class Leaderboards : MonoBehaviour
         AuthenticationService.Instance.SignOut();
     }
 
-    async public void SubmitScore(string leaderboards, int score)
+    async public Task SubmitScore(string leaderboards, int score)
     {
         try
         {
@@ -83,16 +83,14 @@ public class Leaderboards : MonoBehaviour
                     {
                         {"num", schoolNum}
                     }
-                    
                 }
             );
-                    
                 
             Debug.Log($"점수 제출. 이름: {schoolNum}, 점수:{score}");
         }
         catch (Exception e)
         {
-            Debug.LogError(e.Message);
+            Debug.LogError($"니ㅈ댐:{e.Message}");
         }
     }
 }

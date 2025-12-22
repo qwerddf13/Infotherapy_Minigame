@@ -21,13 +21,16 @@ public class Coin : MonoBehaviour
     void Awake()
     {
         toInsertCoin = 3;
+        DontDestroyOnLoad(gameObject);
     }
 
     void Update()
     {
-        coinText1.text = $"현재 코인: {coinAmount}";
-        coinText2.text = $"현재 코인: {coinAmount}";
-        toInsertCoinText.text = $"{toInsertCoin}";
+        if (coinText1 != null){
+            coinText1.text = $"현재 코인: {coinAmount}";
+            coinText2.text = $"현재 코인: {coinAmount}";
+            toInsertCoinText.text = $"{toInsertCoin}";
+        }
     }
 
     public void IncreaseToInsertCoin()
@@ -53,5 +56,10 @@ public class Coin : MonoBehaviour
         coinAmount += toInsertCoin;
         realText.text = "";
         acceptButton.interactable = false;
+    }
+
+    public void UseCoin()
+    {
+        coinAmount--;
     }
 }
