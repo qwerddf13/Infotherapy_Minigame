@@ -7,21 +7,48 @@ using System;
 using Unity.Services.Core;
 using System.Threading.Tasks;
 using TMPro;
+using Unity.Collections.LowLevel.Unsafe;
 
 public class Leaderboards : MonoBehaviour
 {
     public TMP_InputField schoolNumInput;
 
-    async void Start()
+    static string schoolNum;
+
+    async void Awake()
     {
         await UnityServices.InitializeAsync();
-        
-        schoolNumInput.onEndEdit.AddListener(async (value) => await SignUpWithUsernameAndPasswordAsync(schoolNumInput.text, $"Aa@{schoolNumInput.text}"));
-        schoolNumInput.onEndEdit.AddListener(async (value) => await SignInWithUsernameAndPasswordAsync(schoolNumInput.text, $"Aa@{schoolNumInput.text}"));
+
+        DontDestroyOnLoad(gameObject);
+    }
+
+
+    public async Task SignUpOrInWithUsernameAndPasswordAsync(string username, string password)
+    {
+        schoolNum = username;
+        AuthenticationService.Instance.SignOut();
+
+        try
+        {
+            await AuthenticationService.Instance.SignUpWithUsernamePasswordAsync(username, password);
+            Debug.Log("회원가입 성공!");
+            Debug.Log($"PlayerID: {AuthenticationService.Instance.PlayerId}");
+        }
+        catch (AuthenticationException ex)
+        {
+            Debug.LogWarning("회원가입 실패: " + ex.Message);
+            await SignInWithUsernameAndPasswordAsync(username, password);
+        }
+        catch (RequestFailedException ex)
+        {
+            Debug.LogError("요청 실패: " + ex.Message);
+        }
     }
 
     public async Task SignInWithUsernameAndPasswordAsync(string username, string password)
     {
+        AuthenticationService.Instance.SignOut();
+
         try
         {
             await AuthenticationService.Instance.SignInWithUsernamePasswordAsync(username, password);
@@ -38,36 +65,30 @@ public class Leaderboards : MonoBehaviour
         }
     }
 
-
-    public async Task SignUpWithUsernameAndPasswordAsync(string username, string password)
+    public void SignOut()
     {
-        try
-        {
-            await AuthenticationService.Instance.SignUpWithUsernamePasswordAsync(username, password);
-            Debug.Log("회원가입 성공!");
-            Debug.Log($"PlayerID: {AuthenticationService.Instance.PlayerId}");
-        }
-        catch (AuthenticationException ex)
-        {
-            Debug.LogError("회원가입 실패: " + ex.Message);
-        }
-        catch (RequestFailedException ex)
-        {
-            Debug.LogError("요청 실패: " + ex.Message);
-        }
+        AuthenticationService.Instance.SignOut();
     }
 
-    async public void SubmitScore(string leaderboards, string name, int score)
+    async public void SubmitScore(string leaderboards, int score)
     {
         try
         {
-            await LeaderboardsService.Instance.AddPlayerScoreAsync(leaderboards, score);
-            Debug.Log($"점수 제출. 이름: {name}, 점수:{score}");
-
-            if (name == null || score < 0)
-            {
-                throw new Exception("이름이 존재하지 않거나 비정상적인 점수입니다.");
-            }
+            await LeaderboardsService.Instance.AddPlayerScoreAsync(
+                leaderboards, 
+                score,
+                new AddPlayerScoreOptions
+                {
+                    Metadata = new Dictionary<string, string>
+                    {
+                        {"num", schoolNum}
+                    }
+                    
+                }
+            );
+                    
+                
+            Debug.Log($"점수 제출. 이름: {schoolNum}, 점수:{score}");
         }
         catch (Exception e)
         {

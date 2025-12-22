@@ -2,13 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Services.Core;
 
 public class GameManage : MonoBehaviour
 {
     public bool isGameRunning = false;
-    void Start()
+    async void Start()
     {
-
+        await UnityServices.InitializeAsync();
     }
 
 
