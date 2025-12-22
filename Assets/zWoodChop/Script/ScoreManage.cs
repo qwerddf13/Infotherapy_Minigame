@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using Dan.Main;
-
 public class ScoreManage : MonoBehaviour
 {
     public int score = 0;
