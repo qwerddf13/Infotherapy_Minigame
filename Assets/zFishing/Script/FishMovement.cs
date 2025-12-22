@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class FishMovement : MonoBehaviour
 {
-    public float speed = 2.0f;
-    public int scoreValue = 10;      // 이 물고기를 잡았을 때 얻는 점수
+    public float speed = 5.0f;
+    public int scoreValue = 10;      // 이 물고기의 점수 (인스펙터에서 수정!)
     private Vector2 moveDirection;
     private float destroyX;
-    private bool isDead = false;     // 죽었는지 확인 (중복 충돌 방지)
+    private bool isDead = false;     
     
     private Animator anim;
 
@@ -30,8 +30,7 @@ public class FishMovement : MonoBehaviour
 
     void Update()
     {
-        if (isDead) return; // 죽었다면 이동 중지
-
+        if (isDead) return;
         transform.Translate(moveDirection * speed * Time.deltaTime);
 
         if ((moveDirection == Vector2.left && transform.position.x <= destroyX) ||
@@ -41,7 +40,7 @@ public class FishMovement : MonoBehaviour
         }
     }
 
-    // 작살과 부딪혔을 때 호출되는 함수
+    // 작살(Spear 태그)과 부딪히면 점수를 주고 죽습니다.
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Spear") && !isDead)
@@ -53,14 +52,14 @@ public class FishMovement : MonoBehaviour
     void Die()
     {
         isDead = true;
-        
-        // 1. 죽는 애니메이션 실행 (파라미터 이름이 "Die"라고 가정)
         if (anim != null) anim.SetTrigger("Die");
 
-        // 2. 점수 추가 (나중에 ScoreManager를 만들면 거기서 호출)
-        Debug.Log(scoreValue);
+        // 매니저에게 내 점수(scoreValue)만큼 더해달라고 합니다.
+        if (FScoreManager.instance != null)
+        {
+            FScoreManager.instance.AddScore(scoreValue);
+        }
 
-        // 3. 이펙트와 함께 사라지기 (0.5초 뒤 삭제, 애니메이션 시간에 맞춰 조절)
         Destroy(gameObject, 0.5f);
     }
 }
