@@ -10,6 +10,10 @@ public class SchoolNumInput : MonoBehaviour
     [SerializeField] Image image;
     [SerializeField] Button selectButton;
     [SerializeField] Button insertCoinButton;
+
+    [SerializeField] Leaderboards leaderboardsScript;
+    [SerializeField] GameObject loadingCircle;
+
     public static string schoolNum = "00000";
 
     void Start()
@@ -22,12 +26,16 @@ public class SchoolNumInput : MonoBehaviour
         
     }
 
-    public void CheckNumFilled()
+    public async void CheckNumFilled()
     {
         if (tMP_InputField.text.Length == 5)
         {
             image.color = new Color(0, 1, 0);
             schoolNum = tMP_InputField.text;
+
+            loadingCircle.SetActive(true);
+            await leaderboardsScript.SignUpOrInWithUsernameAndPasswordAsync(tMP_InputField.text, $"Aa@{tMP_InputField.text}");
+            loadingCircle.SetActive(false);
 
             selectButton.interactable = true;
             insertCoinButton.interactable = true;
@@ -39,6 +47,8 @@ public class SchoolNumInput : MonoBehaviour
 
             selectButton.interactable = false;
             insertCoinButton.interactable = false;
+
+            leaderboardsScript.SignOut();
         }
         else
         {
@@ -47,6 +57,8 @@ public class SchoolNumInput : MonoBehaviour
 
             selectButton.interactable = false;
             insertCoinButton.interactable = false;
+
+            leaderboardsScript.SignOut();
         }
     }
 }

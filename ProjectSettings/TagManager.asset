@@ -8,6 +8,7 @@ TagManager:
   - Grill
   - Goal
   - GameOver
+  - Origin
   layers:
   - Default
   - TransparentFX
