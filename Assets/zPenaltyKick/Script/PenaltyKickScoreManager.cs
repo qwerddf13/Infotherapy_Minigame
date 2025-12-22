@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class ScoreManager : MonoBehaviour
+public class PenaltyKickScoreManager : MonoBehaviour
 {
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI highScoreText;

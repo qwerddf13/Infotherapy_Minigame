@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class Ball : MonoBehaviour
 {
@@ -7,11 +8,16 @@ public class Ball : MonoBehaviour
     public float maxForce = 30f;
 
     [Header("Managers & UI")]
-    public ScoreManager scoreManager;
-    public GameObject gameOverPanel;
-    public GameObject goalUI; // 여기에 미리 만들어둔 Goal 텍스트 오브젝트를 드래그해서 넣으세요!
+    public PenaltyKickScoreManager scoreManager; 
+    public GameObject gameOverPanel;             
+    public GameObject goalUI;           
+    public TextMeshProUGUI powerText;            
+
+    [Header("Arrow UI")]
+    public GameObject arrowHead;                 
 
     private Rigidbody2D rb;
+    private LineRenderer lr;
     private Vector2 startPos;
     private Vector2 dragStartPos;
     private bool isShot = false;
@@ -20,13 +26,22 @@ public class Ball : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        lr = GetComponent<LineRenderer>();
         cam = Camera.main;
         startPos = transform.position;
         
-        // 초기화: 모든 패널 꺼두기
-        if (rb != null) rb.isKinematic = true;
+        if (rb != null) 
+        {
+            rb.isKinematic = true;
+            rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous; 
+        }
+
+        if (lr != null) lr.enabled = false;
+        if (arrowHead != null) arrowHead.SetActive(false);
         if (gameOverPanel != null) gameOverPanel.SetActive(false);
         if (goalUI != null) goalUI.SetActive(false);
+        
+        UpdatePowerUI(0);
     }
 
     void Update()
@@ -36,12 +51,41 @@ public class Ball : MonoBehaviour
         if (!isShot && Input.GetMouseButtonDown(0))
         {
             dragStartPos = cam.ScreenToWorldPoint(Input.mousePosition);
+            if (lr != null) lr.enabled = true;
+            if (arrowHead != null) arrowHead.SetActive(true);
+        }
+
+        if (!isShot && Input.GetMouseButton(0))
+        {
+            Vector2 currentMousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 forceDir = dragStartPos - currentMousePos;
+            float currentForce = Mathf.Min(forceDir.magnitude * powerMultiplier, maxForce);
+            
+            UpdatePowerUI(currentForce);
+            DrawGuideLine(forceDir);
         }
 
         if (!isShot && Input.GetMouseButtonUp(0))
         {
-            Vector2 dragEndPos = cam.ScreenToWorldPoint(Input.mousePosition);
-            Shoot(dragStartPos, dragEndPos);
+            if (lr != null) lr.enabled = false;
+            if (arrowHead != null) arrowHead.SetActive(false);
+            Shoot(dragStartPos, cam.ScreenToWorldPoint(Input.mousePosition));
+        }
+    }
+
+    void DrawGuideLine(Vector2 direction)
+    {
+        if (lr == null) return;
+        lr.positionCount = 2;
+        lr.SetPosition(0, transform.position);
+        Vector3 endPoint = (Vector2)transform.position + direction; 
+        lr.SetPosition(1, endPoint);
+
+        if (arrowHead != null)
+        {
+            arrowHead.transform.position = endPoint;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            arrowHead.transform.rotation = Quaternion.Euler(0, 0, angle - 90f);
         }
     }
 
@@ -51,30 +95,37 @@ public class Ball : MonoBehaviour
         if (forceDir.magnitude < 0.2f) return;
 
         isShot = true;
-        rb.isKinematic = false;
+        rb.isKinematic = false; 
         float appliedForce = Mathf.Min(forceDir.magnitude * powerMultiplier, maxForce);
         rb.AddForce(forceDir.normalized * appliedForce, ForceMode2D.Impulse);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // 1. 골대 충돌 시
         if (collision.CompareTag("Goal"))
         {
             if (scoreManager != null) scoreManager.AddScore(1);
-
-            // Goal UI 켜기 (GameOverPanel 켜는 것과 똑같은 방식!)
-            if (goalUI != null)
+            
+            // 1. Goal 텍스트는 켜고 1.2초 뒤에 꺼지도록 예약 (따로 작동)
+            if (goalUI != null) 
             {
-                goalUI.SetActive(true);
-                Invoke("HideGoalUI", 0.5f);
+                goalUI.SetActive(true); 
+                Invoke("HideGoalUI", 0.5f); 
             }
 
-            ResetBall();
+            // 2. [핵심] 공은 텍스트와 상관없이 즉시 원위치
+            ResetBall(); 
         }
 
-        // 2. 장애물 충돌 시
         if (collision.CompareTag("GameOver"))
+        {
+            ShowGameOver();
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("GameOver"))
         {
             ShowGameOver();
         }
@@ -83,8 +134,12 @@ public class Ball : MonoBehaviour
     void ShowGameOver()
     {
         isShot = false;
-        rb.velocity = Vector2.zero;
-        rb.isKinematic = true;
+        if (rb != null)
+        {
+            rb.velocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+            rb.isKinematic = true;
+        }
         if (gameOverPanel != null) gameOverPanel.SetActive(true);
     }
 
@@ -96,9 +151,21 @@ public class Ball : MonoBehaviour
     public void ResetBall()
     {
         isShot = false;
-        rb.velocity = Vector2.zero;
-        rb.angularVelocity = 0f;
-        rb.isKinematic = true;
+        if (rb != null)
+        {
+            rb.isKinematic = true;
+            rb.velocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+        }
+        if (arrowHead != null) arrowHead.SetActive(false);
+        
         transform.position = startPos;
+        UpdatePowerUI(0);
+        // 여기서 goalUI.SetActive(false)를 지웠으므로 텍스트는 유지됩니다.
+    }
+
+    void UpdatePowerUI(float power)
+    {
+        if (powerText != null) powerText.text = "Power: " + power.ToString("F1");
     }
 }
