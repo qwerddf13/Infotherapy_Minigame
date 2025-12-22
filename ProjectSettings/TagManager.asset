@@ -6,7 +6,9 @@ TagManager:
   tags:
   - Gogi
   - Grill
-  - Spear
+  - Goal
+  - GameOver
+  - Origin
   layers:
   - Default
   - TransparentFX
