@@ -13,10 +13,7 @@ public class Player : MonoBehaviour
     public GameManage gameManage;
     public Leaderboards leaderboards;
     public ScoreManage scoreManage;
-    public Rank rankScript1;
-    public Rank rankScript2;
-    public Rank rankScript3;
-
+    public Rank rankScript;
 
     void Start()
     {
@@ -125,8 +122,6 @@ public class Player : MonoBehaviour
     {
         animator.SetTrigger("dead");
         gameManage.isGameRunning = false;
-        await rankScript1.BeforeWriteLeaderboard(scoreManage.score);
-        await rankScript2.BeforeWriteLeaderboard(scoreManage.score);
-        await rankScript3.BeforeWriteLeaderboard(scoreManage.score);
+        await rankScript.BeforeWriteLeaderboard(scoreManage.score);
     }
 }

@@ -10,32 +10,27 @@ public class GoalKeeper : MonoBehaviour
 
     [Header("Target & UI")]
     public GameObject targetObj; 
-    public GameObject gameOverPanel;
 
     private Vector3 startPos;
     private float currentSpeed;
     private float accumulatedTime;
-    private bool isStopped = false;
+    public bool isStopped = false;
 
     void Start()
     {
         Time.timeScale = 1f;
         startPos = transform.position;
         currentSpeed = startSpeed; // 처음엔 시작 속도로 설정
-        
-        if (gameOverPanel != null) gameOverPanel.SetActive(false);
     }
 
     void Update()
     {
-        if (isStopped) return;
+        if (! isStopped){
+            accumulatedTime += Time.deltaTime * currentSpeed;
 
-        // ★ 시간 흐름(Time.deltaTime)에 따른 자동 가속은 제거됨
-        // 오직 currentSpeed에 비례하여 위치만 계산합니다.
-        accumulatedTime += Time.deltaTime * currentSpeed;
-
-        float offset = Mathf.PingPong(accumulatedTime, range) - (range / 2f);
-        transform.position = startPos + new Vector3(offset, 0, 0);
+            float offset = Mathf.PingPong(accumulatedTime, range) - (range / 2f);
+            transform.position = startPos + new Vector3(offset, 0, 0);
+        }
     }
 
     // 골을 넣었을 때 PenaltyKickScoreManager에서 호출됨
@@ -50,16 +45,14 @@ public class GoalKeeper : MonoBehaviour
     {
         if (collision.gameObject == targetObj)
         {
+            Debug.Log("게임 종료 시도");
             StopGame();
         }
     }
 
     public void StopGame()
     {
-        if (isStopped) return;
         isStopped = true;
-        Time.timeScale = 0f; 
-
-        if (gameOverPanel != null) gameOverPanel.SetActive(true);
+        currentSpeed = 0;
     }
 }

@@ -20,6 +20,8 @@ public class Rank : MonoBehaviour
     [SerializeField] TMP_Text nameText3;
     [SerializeField] TMP_Text scoreText3;
 
+    [SerializeField] TMP_Text resultScore;
+
     [SerializeField] Leaderboards leaderboards;
     [SerializeField] int sceneNum;
 
@@ -60,6 +62,7 @@ public class Rank : MonoBehaviour
 
     public async Task BeforeWriteLeaderboard(int scoreNum)
     {
+        resultScore.text = scoreNum.ToString();
         if (leaderboards != null)
         {
             try
@@ -84,56 +87,82 @@ public class Rank : MonoBehaviour
         {
             rank = 1;
         }
-        try
+        var myScore = await LeaderboardsService.Instance.GetScoresAsync(sceneName, new GetScoresOptions
         {
-            var myScore = await LeaderboardsService.Instance.GetScoresAsync(sceneName, new GetScoresOptions
+            Limit = 3, Offset = rank - 1, IncludeMetadata = true
+        });
+        
+        if (myScore != null && myScore.Results.Count > 0)
+        {
+            for (int i = 0; i < 3; i++)
             {
-                Limit = 3, Offset = rank - 1, IncludeMetadata = true
-            });
+                string schoolNum = myScore.Results[i].Metadata;
+                var meta = JsonUtility.FromJson<RankMetadata>(schoolNum);
+                string num = meta.num;
 
-            string schoolNum = myScore.Results[0].Metadata;
+                var score = myScore.Results[i];
+                Debug.Log($"순위 {i + 1}: 유저 ID = {num}, 점수 = {score.Score}");
 
-            var meta = JsonUtility.FromJson<RankMetadata>(schoolNum);
-
-            string num = meta.num;
-            
-            if (myScore != null && myScore.Results.Count > 0)
-            {
-                for (int i = 0; i < myScore.Results.Count; i++)
+                switch (i)
                 {
-                    var score = myScore.Results[i];
-
-                    switch (i)
-                    {
-                        case 0:
-                            rankText1.text = (i + 1).ToString();
-                            nameText1.text = num;
-                            scoreText1.text = score.Score.ToString();
+                    case 0:
+                        try
+                        {
+                            rankText1.text = $"{i + 1}위";
+                            nameText1.text = $"{num}";
+                            scoreText1.text = $"{score.Score}점";
                             break;
-                        case 1:
-                            rankText2.text = (i + 1).ToString();
-                            nameText2.text = num;
-                            scoreText3.text = score.Score.ToString();
+                        }
+                        catch (Exception)
+                        {
+                            rankText1.text = "";
+                            nameText1.text = "";
+                            scoreText1.text = "";
+                            Debug.Log("리더보드에 없어서 넘어감 (\"\")");
                             break;
-                        case 2:
-                            rankText3.text = (i + 1).ToString();
-                            nameText3.text = num;
-                            scoreText3.text = score.Score.ToString();
+                        }
+                    case 1:
+                        try
+                        {
+                            rankText2.text = $"{i + 1}위";
+                            nameText2.text = $"{num}";
+                            scoreText2.text = $"{score.Score}점";
                             break;
-                        default:
+                        }
+                        catch (Exception)
+                        {
+                            rankText2.text = "";
+                            nameText2.text = "";
+                            scoreText2.text = "";
+                            Debug.Log("리더보드에 없어서 넘어감 (\"\")");
                             break;
-                    }
+                        }
+                    case 2:
+                        try
+                        {
+                            rankText3.text = $"{i + 1}위";
+                            nameText3.text = $"{num}";
+                            scoreText3.text = $"{score.Score}점";
+                            break;
+                        }
+                        catch (Exception)
+                        {
+                            rankText3.text = "";
+                            nameText3.text = "";
+                            scoreText3.text = "";
+                            Debug.Log("리더보드에 없어서 넘어감 (\"\")");
+                            break;
+                        }
+                    default:
+                        break;
                 }
             }
-            else
-            {
-                Debug.Log("리더보드에 데이터가 없습니다.");
-            }
         }
-        catch (Exception e)
+        else
         {
-            Debug.LogWarning($"리더보드 데이터를 가져오는 중 오류가 발생했습니다: {e.Message}");
+            Debug.Log("리더보드에 데이터가 없습니다.");
         }
     }
 }
+
 

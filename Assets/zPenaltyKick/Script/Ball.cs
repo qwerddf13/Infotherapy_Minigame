@@ -3,6 +3,12 @@ using TMPro;
 
 public class Ball : MonoBehaviour
 {
+    [Header("Ranking")]
+    [SerializeField] RectTransform resultContainer;
+    [SerializeField] EndCard endCard;
+    [SerializeField] Rank rankScript;
+    [SerializeField] PenaltyKickScoreManager penaltyKickScoreManager;
+    [SerializeField] GoalKeeper goalKeeper;
     // ... (기존 변수들 동일) ...
     [Header("Shoot Settings")]
     public float powerMultiplier = 10f;
@@ -53,6 +59,7 @@ public class Ball : MonoBehaviour
 
     void Update()
     {
+        if (!goalKeeper.isStopped){
         if (rb == null || (gameOverPanel != null && gameOverPanel.activeSelf)) return;
 
         if (!isShot && Input.GetMouseButtonDown(0))
@@ -76,6 +83,7 @@ public class Ball : MonoBehaviour
             if (lr != null) lr.enabled = false;
             if (arrowHead != null) arrowHead.SetActive(false);
             Shoot(dragStartPos, cam.ScreenToWorldPoint(Input.mousePosition));
+        }
         }
     }
 
@@ -148,7 +156,7 @@ public class Ball : MonoBehaviour
         ResetBall(); // 공을 제자리로 돌리고 isShot을 false로 변경
     }
 
-    void ShowGameOver()
+    async void ShowGameOver()
     {
         if (!isShot) return;
 
@@ -161,7 +169,12 @@ public class Ball : MonoBehaviour
             rb.angularVelocity = 0f;
             rb.isKinematic = true;
         }
-        if (gameOverPanel != null) gameOverPanel.SetActive(true);
+
+        endCard.EndCardAppear();
+        LeanTween.moveY(resultContainer, 0, 2f).setEase(LeanTweenType.easeOutQuint).setDelay(3f);
+        Debug.Log("게임 멈춤");
+        goalKeeper.StopGame();
+        await rankScript.BeforeWriteLeaderboard(penaltyKickScoreManager.currentScore);
     }
 
     void PlaySound(AudioClip clip)

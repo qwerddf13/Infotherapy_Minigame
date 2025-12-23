@@ -15,7 +15,7 @@ public class Coin : MonoBehaviour
     
     [SerializeField] AudioSource insertCoinSound;
 
-    public static int coinAmount = 1;///////////////////////////////!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!//////////////////////////////
+    public static int coinAmount = 0;///////////////////////////////!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!//////////////////////////////
     public int toInsertCoin;
 
     void Awake()

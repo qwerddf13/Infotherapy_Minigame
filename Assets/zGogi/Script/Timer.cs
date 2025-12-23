@@ -8,10 +8,12 @@ public class Timer : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI timerText;
     [SerializeField] float remainingTime;
-    [SerializeField] GameObject gameOverPanel;
-    [SerializeField] TextMeshProUGUI finalScoreText;
+    [SerializeField] Rank rankScript;
 
-    private bool isGameOver = false;
+    [SerializeField] RectTransform resultContainer;
+    [SerializeField] EndCard endCard;
+
+    public bool isGameOver = false;
 
     void Update()
     {
@@ -37,22 +39,16 @@ public class Timer : MonoBehaviour
         }
     }
 
-    void ShowGameOver()
+    async void ShowGameOver()
     {
         isGameOver = true;
 
-        if (gameOverPanel != null)
+        if (resultContainer != null)
         {
-            gameOverPanel.SetActive(true);
-
-    
-            if (Score.instance != null && finalScoreText != null)
-            {
-                int score = Score.instance.GetFinalScore();
-                finalScoreText.text = "Final Score: " + score.ToString() + " score";
-            }
+            endCard.EndCardAppear();
+            LeanTween.moveY(resultContainer, 0, 2f).setEase(LeanTweenType.easeOutQuint).setDelay(1f);
         }
-
-        Time.timeScale = 0f;
+        
+        await rankScript.BeforeWriteLeaderboard(Score.instance.GetFinalScore());
     }
 }

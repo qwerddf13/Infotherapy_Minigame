@@ -16,7 +16,7 @@ public class Password : MonoBehaviour
     {
         realText.text = "";
         starText.text = "";
-        password = "000000";
+        password = "521657";
     }
 
     void Update()

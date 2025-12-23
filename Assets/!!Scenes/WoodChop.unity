@@ -1289,7 +1289,6 @@ GameObject:
   - component: {fileID: 615555928}
   - component: {fileID: 615555931}
   - component: {fileID: 615555930}
-  - component: {fileID: 615555929}
   m_Layer: 5
   m_Name: Score
   m_TagString: Untagged
@@ -1316,20 +1315,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &615555929
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 615555927}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed60008e2867fd441827f0182283fcb3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  resultScoreText: {fileID: 615555930}
-  scoreManage: {fileID: 199320859}
 --- !u!114 &615555930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1542,6 +1527,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 805506937}
+  - component: {fileID: 805506938}
   m_Layer: 5
   m_Name: Leaderboard
   m_TagString: Untagged
@@ -1572,6 +1558,30 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 30}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &805506938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 805506936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45192de6bd5d18a4e8c74ef7cb2a6c94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rankText1: {fileID: 1053529788}
+  nameText1: {fileID: 1053529788}
+  scoreText1: {fileID: 1255237066}
+  rankText2: {fileID: 1146838252}
+  nameText2: {fileID: 1210118948}
+  scoreText2: {fileID: 1777362017}
+  rankText3: {fileID: 313776261}
+  nameText3: {fileID: 1033366676}
+  scoreText3: {fileID: 1386210090}
+  resultScore: {fileID: 615555930}
+  leaderboards: {fileID: 117547577}
+  sceneNum: 0
 --- !u!1 &983077795
 GameObject:
   m_ObjectHideFlags: 0
@@ -1722,7 +1732,6 @@ GameObject:
   - component: {fileID: 1033366675}
   - component: {fileID: 1033366677}
   - component: {fileID: 1033366676}
-  - component: {fileID: 1033366678}
   m_Layer: 5
   m_Name: NextName
   m_TagString: Untagged
@@ -1848,24 +1857,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1033366674}
   m_CullTransparentMesh: 1
---- !u!114 &1033366678
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1033366674}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45192de6bd5d18a4e8c74ef7cb2a6c94, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rankText: {fileID: 313776261}
-  nameText: {fileID: 1033366676}
-  scoreText: {fileID: 1386210090}
-  leaderboards: {fileID: 0}
-  myNum: 1
-  sceneNum: 0
 --- !u!1 &1053529786
 GameObject:
   m_ObjectHideFlags: 0
@@ -1877,7 +1868,6 @@ GameObject:
   - component: {fileID: 1053529787}
   - component: {fileID: 1053529789}
   - component: {fileID: 1053529788}
-  - component: {fileID: 1053529790}
   m_Layer: 5
   m_Name: PreviousName
   m_TagString: Untagged
@@ -2003,24 +1993,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1053529786}
   m_CullTransparentMesh: 1
---- !u!114 &1053529790
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1053529786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45192de6bd5d18a4e8c74ef7cb2a6c94, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rankText: {fileID: 543765075}
-  nameText: {fileID: 1053529788}
-  scoreText: {fileID: 1255237066}
-  leaderboards: {fileID: 117547577}
-  myNum: -1
-  sceneNum: 0
 --- !u!1 &1126309285
 GameObject:
   m_ObjectHideFlags: 0
@@ -2104,7 +2076,8 @@ Transform:
   m_LocalPosition: {x: -1.5, y: -2.1875, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1342768535}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1126309288
@@ -2126,9 +2099,7 @@ MonoBehaviour:
   gameManage: {fileID: 199320862}
   leaderboards: {fileID: 117547577}
   scoreManage: {fileID: 199320859}
-  rankScript1: {fileID: 1053529790}
-  rankScript2: {fileID: 1210118950}
-  rankScript3: {fileID: 1033366678}
+  rankScript: {fileID: 805506938}
 --- !u!95 &1126309289
 Animator:
   serializedVersion: 5
@@ -2295,7 +2266,6 @@ GameObject:
   - component: {fileID: 1210118947}
   - component: {fileID: 1210118949}
   - component: {fileID: 1210118948}
-  - component: {fileID: 1210118950}
   m_Layer: 5
   m_Name: OriginName
   m_TagString: Untagged
@@ -2421,24 +2391,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1210118946}
   m_CullTransparentMesh: 1
---- !u!114 &1210118950
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1210118946}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45192de6bd5d18a4e8c74ef7cb2a6c94, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rankText: {fileID: 1146838252}
-  nameText: {fileID: 1210118948}
-  scoreText: {fileID: 1777362017}
-  leaderboards: {fileID: 0}
-  myNum: 0
-  sceneNum: 0
 --- !u!1 &1255237064
 GameObject:
   m_ObjectHideFlags: 0
@@ -2766,11 +2718,11 @@ Transform:
   m_GameObject: {fileID: 1342768532}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.5, y: -2, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1875, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1126309287}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1342768536
 AudioSource:
@@ -4033,7 +3985,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB7AD\uD0B9"
+  m_text: "\uB0B4 \uC8FC\uBCC0 \uB7AD\uD0B9"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7f6795680833d3648bda03d374e7c35b, type: 2}
   m_sharedMaterial: {fileID: -5399455802665945665, guid: 7f6795680833d3648bda03d374e7c35b, type: 2}
@@ -4707,7 +4659,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 1126309287}
-  - {fileID: 1342768535}
   - {fileID: 173123024}
   - {fileID: 622129331}
   - {fileID: 1876274593}

@@ -11,19 +11,18 @@ public class FGameManager : MonoBehaviour
     public RectTransform resultContainer;    // 결과 창 Panel 오브젝트
     public TextMeshProUGUI finalScoreText; // 결과 창에 표시할 최종 점수 텍스트
     public EndCard endCard;
-    public Rank rankScript1;
-    public Rank rankScript2;
-    public Rank rankScript3;
+    public Rank rankScript;
     public static bool isGameOver = false;
 
     void Awake()
     {
         if (instance == null) instance = this;
+        isGameOver = false;
     }
 
     void Start()
     {
-        Time.timeScale = 10f;
+        Time.timeScale = 1f;
     }
 
     // 게임 종료 함수
@@ -45,9 +44,7 @@ public class FGameManager : MonoBehaviour
 
         try
         {
-            await rankScript1.BeforeWriteLeaderboard(FScoreManager.instance.currentScore);
-            await rankScript1.BeforeWriteLeaderboard(FScoreManager.instance.currentScore);
-            await rankScript1.BeforeWriteLeaderboard(FScoreManager.instance.currentScore);
+            await rankScript.BeforeWriteLeaderboard(FScoreManager.instance.currentScore);
         }
         catch(Exception ex)
         {
