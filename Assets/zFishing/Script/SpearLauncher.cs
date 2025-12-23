@@ -11,6 +11,8 @@ public class SpearLauncher : MonoBehaviour
     public float shootSpeed = 20f;
     public float returnSpeed = 15f;
     public float maxDistance = 10f;
+    [Header("사운드")]
+    public AudioClip shootSound;
     
     private Vector3 originLocalPos;
     private Vector3 targetWorldPos;
@@ -53,6 +55,11 @@ public class SpearLauncher : MonoBehaviour
         mousePos.z = 0;
         Vector3 dir = (mousePos - transform.position).normalized;
         targetWorldPos = transform.position + (dir * maxDistance);
+
+        if (FScoreManager.instance != null)
+    {
+        FScoreManager.instance.PlaySFX(shootSound);
+    }
     }
 
     void HandleMovement()

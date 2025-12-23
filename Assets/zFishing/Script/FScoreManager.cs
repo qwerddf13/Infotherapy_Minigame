@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class FScoreManager : MonoBehaviour
@@ -10,23 +9,33 @@ public class FScoreManager : MonoBehaviour
     public int currentScore = 0;
     public TextMeshProUGUI scoreText;
 
+    [Header("효과음 설정")]
+    public AudioSource audioSource;
+    public AudioClip scoreSound;
+    public AudioClip hitSound;
+
     void Awake() 
     { 
-        // 싱글톤 패턴: 어디서든 instance로 접근 가능하게 합니다.
         if (instance == null) instance = this; 
+        else Destroy(gameObject); // 중복 인스턴스 방지
     }
 
-    // 물고기가 죽을 때 이 함수를 호출합니다.
+    public void PlaySFX(AudioClip clip)
+    {
+        if (audioSource != null && clip != null)
+        {
+            audioSource.PlayOneShot(clip);
+        }
+    }
+
     public void AddScore(int amount)
     {
         currentScore += amount;
-        Debug.Log("현재 점수: " + currentScore);
-
         if (scoreText != null)
         {
             scoreText.text = "Score: " + currentScore;
         }
+        PlaySFX(scoreSound);
+        Debug.Log("현재 점수: " + currentScore);
     }
-    
-    // 절대 Update() 안에서 AddScore()를 호출하지 마세요!
 }

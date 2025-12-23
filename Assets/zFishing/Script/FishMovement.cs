@@ -78,10 +78,11 @@ public class FishMovement : MonoBehaviour
         // 2. 이펙트 생성 (선택 사항)
         if (hitEffectPrefab != null) Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
 
-        // 3. 중요: 물고기를 작살의 자식으로 만듭니다.
         transform.SetParent(spearTransform);
-    
-        // 4. 작살 끝에 자연스럽게 매달리도록 위치를 살짝 조정할 수 있습니다.
-        // transform.localPosition = Vector3.zero; 
+        if (FScoreManager.instance != null)
+        {
+            FScoreManager.instance.PlaySFX(FScoreManager.instance.hitSound);
+        }
     }
+    
 }
