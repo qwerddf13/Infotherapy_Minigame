@@ -3,6 +3,7 @@ using TMPro;
 
 public class Ball : MonoBehaviour
 {
+    // ... (기존 변수들 동일) ...
     [Header("Shoot Settings")]
     public float powerMultiplier = 10f;
     public float maxForce = 30f;
@@ -15,6 +16,11 @@ public class Ball : MonoBehaviour
 
     [Header("Arrow UI")]
     public GameObject arrowHead;                 
+
+    [Header("Audio Settings")]
+    public AudioSource audioSource;      
+    public AudioClip goalSound;          
+    public AudioClip gameOverSound;      
 
     private Rigidbody2D rb;
     private LineRenderer lr;
@@ -30,6 +36,7 @@ public class Ball : MonoBehaviour
         cam = Camera.main;
         startPos = transform.position;
         
+        if (audioSource == null) audioSource = GetComponent<AudioSource>();
         if (rb != null) 
         {
             rb.isKinematic = true;
@@ -60,7 +67,6 @@ public class Ball : MonoBehaviour
             Vector2 currentMousePos = cam.ScreenToWorldPoint(Input.mousePosition);
             Vector2 forceDir = dragStartPos - currentMousePos;
             float currentForce = Mathf.Min(forceDir.magnitude * powerMultiplier, maxForce);
-            
             UpdatePowerUI(currentForce);
             DrawGuideLine(forceDir);
         }
@@ -102,38 +108,53 @@ public class Ball : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // ★ 골 판정을 최우선으로 검사
         if (collision.CompareTag("Goal"))
         {
-            if (scoreManager != null) scoreManager.AddScore(1);
-            
-            // 1. Goal 텍스트는 켜고 1.2초 뒤에 꺼지도록 예약 (따로 작동)
-            if (goalUI != null) 
-            {
-                goalUI.SetActive(true); 
-                Invoke("HideGoalUI", 0.5f); 
-            }
-
-            // 2. [핵심] 공은 텍스트와 상관없이 즉시 원위치
-            ResetBall(); 
+            ProcessGoal();
+            return; // 골 판정이 났으므로 아래의 다른 충돌 검사는 무시
         }
 
         if (collision.CompareTag("GameOver"))
         {
-            ShowGameOver();
+            // 이미 골 처리가 되어 공이 리셋 중(isShot = false)이라면 무시
+            if (isShot) ShowGameOver();
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        // 물리 충돌에서도 동일하게 체크
         if (collision.gameObject.CompareTag("GameOver"))
         {
-            ShowGameOver();
+            if (isShot) ShowGameOver();
         }
+    }
+
+    // 골 처리 로직을 별도 함수로 분리
+    void ProcessGoal()
+    {
+        if (!isShot) return; // 이미 처리 중이면 중복 실행 방지
+
+        PlaySound(goalSound);
+        if (scoreManager != null) scoreManager.AddScore(1);
+        
+        if (goalUI != null) 
+        {
+            goalUI.SetActive(true); 
+            Invoke("HideGoalUI", 0.5f); 
+        }
+
+        ResetBall(); // 공을 제자리로 돌리고 isShot을 false로 변경
     }
 
     void ShowGameOver()
     {
+        if (!isShot) return;
+
+        PlaySound(gameOverSound);
         isShot = false;
+        
         if (rb != null)
         {
             rb.velocity = Vector2.zero;
@@ -143,6 +164,12 @@ public class Ball : MonoBehaviour
         if (gameOverPanel != null) gameOverPanel.SetActive(true);
     }
 
+    void PlaySound(AudioClip clip)
+    {
+        if (audioSource != null && clip != null)
+            audioSource.PlayOneShot(clip);
+    }
+
     void HideGoalUI()
     {
         if (goalUI != null) goalUI.SetActive(false);
@@ -150,7 +177,7 @@ public class Ball : MonoBehaviour
 
     public void ResetBall()
     {
-        isShot = false;
+        isShot = false; // 판정 중복 방지의 핵심
         if (rb != null)
         {
             rb.isKinematic = true;
@@ -161,7 +188,6 @@ public class Ball : MonoBehaviour
         
         transform.position = startPos;
         UpdatePowerUI(0);
-        // 여기서 goalUI.SetActive(false)를 지웠으므로 텍스트는 유지됩니다.
     }
 
     void UpdatePowerUI(float power)
