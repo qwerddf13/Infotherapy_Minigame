@@ -18,10 +18,11 @@ public class FScoreManager : MonoBehaviour
     public AudioSource backgroundAudioSource; // 배경 음악용 추가
 
     void Awake() 
-    { 
-        if (instance == null) instance = this; 
-        else Destroy(gameObject); 
-    }
+{ 
+    Time.timeScale = 1f; // 게임 속도를 1배속으로 강제 초기화
+    if (instance == null) instance = this; 
+    else Destroy(gameObject); 
+}
 
     void Start()
     {
