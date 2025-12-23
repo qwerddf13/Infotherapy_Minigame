@@ -6,6 +6,9 @@ public class Copy : MonoBehaviour
 {
     void Update()
     {
+        if (Time.timeScale == 0) return;
+
+
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);

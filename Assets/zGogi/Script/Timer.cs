@@ -53,6 +53,13 @@ public class Timer : MonoBehaviour
             }
         }
 
+
+        AudioSource bgm = Camera.main.GetComponent<AudioSource>();
+        if (bgm != null)
+        {
+            bgm.Stop();
+        }
+
         Time.timeScale = 0f;
     }
 }

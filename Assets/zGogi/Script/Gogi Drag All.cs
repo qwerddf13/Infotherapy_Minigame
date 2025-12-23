@@ -23,6 +23,13 @@ public class GogiDragAll : MonoBehaviour
 
     void Update()
     {
+
+
+
+
+        if (Time.timeScale == 0) return;
+
+
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         if (Input.GetMouseButtonDown(0))
