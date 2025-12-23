@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Gogi : MonoBehaviour
 {
+    [SerializeField] private AudioClip flipSound;
+    private AudioSource audioSource;
+
+
     public Sprite frontGogi, backGogi, roastfrontGogi, roastbackGogi;
     public Sprite burnGogi;
 
@@ -22,6 +26,13 @@ public class Gogi : MonoBehaviour
     void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+        audioSource.playOnAwake = false;
         ResetGogi();
     }
 
@@ -37,7 +48,18 @@ public class Gogi : MonoBehaviour
         if (sr != null && frontGogi != null) sr.sprite = frontGogi;
     }
 
-    public void Flip() { isFront = !isFront; Visual(); }
+    public void Flip()
+    {
+        isFront = !isFront;
+
+        // 뒤집을 때 소리 재생
+        if (flipSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(flipSound);
+        }
+
+        Visual();
+    }
 
     void Update()
     {
@@ -52,13 +74,21 @@ public class Gogi : MonoBehaviour
 
     public int GetScore()
     {
-        float bestTime = Mathf.Max(frontTime, backTime);
+        // 탔을떄
+        if (frontTime >= burn_time || backTime >= burn_time)
+        {
+            return -1;
+        }
 
-        if (bestTime >= burn_time) return -1; // 타면 감점
-        if (bestTime >= cook_time) return 10; // 익으면 득점
-        return 1; // 생고기는 조금
+        // 구워졌을때
+        if (frontTime >= cook_time && backTime >= cook_time)
+        {
+            return 10;
+        }
+
+        // 생고기
+        return 1;
     }
-
 
 
     void Visual()
