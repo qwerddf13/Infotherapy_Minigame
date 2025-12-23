@@ -7,6 +7,9 @@ public class PenaltyKickScoreManager : MonoBehaviour
 {
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI highScoreText;
+    
+    // ★ 골키퍼 참조 추가
+    public GoalKeeper goalKeeper; 
 
     private int currentScore = 0;
     private int highScore = 0;
@@ -15,6 +18,9 @@ public class PenaltyKickScoreManager : MonoBehaviour
     {
         highScore = PlayerPrefs.GetInt("HighScore", 0);
         
+        // 만약 인스펙터에서 할당 안했다면 자동으로 찾기 시도
+        if (goalKeeper == null) goalKeeper = FindObjectOfType<GoalKeeper>();
+
         UpdateScoreUI();
         UpdateHighScoreUI();
     }
@@ -22,6 +28,12 @@ public class PenaltyKickScoreManager : MonoBehaviour
     public void AddScore(int amount)
     {
         currentScore += amount;
+
+        // ★ 골을 넣을 때마다 골키퍼 속도 증가 함수 호출
+        if (goalKeeper != null)
+        {
+            goalKeeper.IncreaseSpeed();
+        }
 
         if (currentScore > highScore)
         {
@@ -34,6 +46,7 @@ public class PenaltyKickScoreManager : MonoBehaviour
         UpdateScoreUI();
     }
 
+    // ... (이하 기존 코드와 동일)
     void UpdateScoreUI()
     {
         if (scoreText != null)
