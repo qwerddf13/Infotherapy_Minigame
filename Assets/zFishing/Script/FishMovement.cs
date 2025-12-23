@@ -9,11 +9,7 @@ public class FishMovement : MonoBehaviour
     public int scoreValue = 10;      
     private Vector2 moveDirection;
     private float destroyX;
-    
-    // isDead 변수는 현재 Catch 로직에서 필요 없으므로 삭제하거나 
-    // isCaught와 통합하여 경고를 제거합니다.
     private bool isCaught = false;
-    
     private Animator anim;
 
     void Start()
@@ -34,7 +30,7 @@ public class FishMovement : MonoBehaviour
 
     void Update()
     {
-        if (isCaught) return; // 잡힌 상태면 이동 중지
+        if (isCaught) return;
 
         transform.Translate(moveDirection * speed * Time.deltaTime);
 
@@ -47,7 +43,6 @@ public class FishMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // 작살에 부딪혔을 때만 잡기 실행
         if (collision.CompareTag("Spear") && !isCaught)
         {
             Catch(collision.transform);
@@ -56,22 +51,22 @@ public class FishMovement : MonoBehaviour
 
     void Catch(Transform spearTransform)
     {   
-        isCaught = true; // 이동 로직 멈춤
-    
-        // 1. 애니메이션 실행
-        if (anim != null) anim.SetTrigger("Die");
-    
-        // 2. 이펙트 생성
-        if (hitEffectPrefab != null) 
-            Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
+        if (isCaught) return; 
+        isCaught = true;
 
-        // 3. 작살의 자식으로 설정하여 함께 이동
+        if (anim != null) anim.SetTrigger("Die");
+        
+        if (hitEffectPrefab != null) 
+        {
+            GameObject effect = Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
+            Destroy(effect, 1.0f); 
+        }
+
         transform.SetParent(spearTransform);
 
-        // 4. 효과음 재생 (FScoreManager 인스턴스 확인)
         if (FScoreManager.instance != null)
         {
-            FScoreManager.instance.PlaySFX(FScoreManager.instance.hitSound);
+            FScoreManager.instance.PlayHitSound();
         }
     }
 }
