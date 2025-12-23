@@ -8,7 +8,6 @@ public class GogiDragAll : MonoBehaviour
 
     private Transform dragging = null;
     private Vector3 offset;
-    [SerializeField] Timer timerScript;
 
     void Awake()
     {
@@ -17,44 +16,45 @@ public class GogiDragAll : MonoBehaviour
 
     public void StartDragging(Transform target)
     {
-        if (timerScript.isGameOver == false)
-        {
-            dragging = target;
-            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            offset = dragging.position - (Vector3)mousePos;
-        }
+        dragging = target;
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        offset = dragging.position - (Vector3)mousePos;
     }
 
     void Update()
     {
-        if (timerScript.isGameOver == false)
+
+
+
+
+        if (Time.timeScale == 0) return;
+
+
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        if (Input.GetMouseButtonDown(0))
         {
-            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-            if (Input.GetMouseButtonDown(0))
+            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
+            if (hit && hit.transform.CompareTag("Gogi"))
             {
-                RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
-                if (hit && hit.transform.CompareTag("Gogi"))
-                {
-                    StartDragging(hit.transform);
+                StartDragging(hit.transform);
 
-                    Gogi gogi = hit.transform.GetComponent<Gogi>();
-                    if (gogi != null) gogi.Flip();
-                }
+                Gogi gogi = hit.transform.GetComponent<Gogi>();
+                if (gogi != null) gogi.Flip();
             }
+        }
 
-            if (Input.GetMouseButtonUp(0))
-            {
-                dragging = null;
-            }
+        if (Input.GetMouseButtonUp(0))
+        {
+            dragging = null;
+        }
 
-    
-            if (dragging != null)
-            {
-                Vector3 targetPos = (Vector3)mousePos + offset;
-                targetPos.z = 0;
-                dragging.position = targetPos;
-            }
+ 
+        if (dragging != null)
+        {
+            Vector3 targetPos = (Vector3)mousePos + offset;
+            targetPos.z = 0;
+            dragging.position = targetPos;
         }
     }
 }

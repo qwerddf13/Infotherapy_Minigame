@@ -8,12 +8,10 @@ public class Timer : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI timerText;
     [SerializeField] float remainingTime;
-    [SerializeField] Rank rankScript;
+    [SerializeField] GameObject gameOverPanel;
+    [SerializeField] TextMeshProUGUI finalScoreText;
 
-    [SerializeField] RectTransform resultContainer;
-    [SerializeField] EndCard endCard;
-
-    public bool isGameOver = false;
+    private bool isGameOver = false;
 
     void Update()
     {
@@ -39,16 +37,29 @@ public class Timer : MonoBehaviour
         }
     }
 
-    async void ShowGameOver()
+    void ShowGameOver()
     {
         isGameOver = true;
 
-        if (resultContainer != null)
+        if (gameOverPanel != null)
         {
-            endCard.EndCardAppear();
-            LeanTween.moveY(resultContainer, 0, 2f).setEase(LeanTweenType.easeOutQuint).setDelay(1f);
+            gameOverPanel.SetActive(true);
+
+    
+            if (Score.instance != null && finalScoreText != null)
+            {
+                int score = Score.instance.GetFinalScore();
+                finalScoreText.text = "Final Score: " + score.ToString() + " score";
+            }
         }
-        
-        await rankScript.BeforeWriteLeaderboard(Score.instance.GetFinalScore());
+
+
+        AudioSource bgm = Camera.main.GetComponent<AudioSource>();
+        if (bgm != null)
+        {
+            bgm.Stop();
+        }
+
+        Time.timeScale = 0f;
     }
 }
