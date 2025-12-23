@@ -22,6 +22,10 @@ public class Result : MonoBehaviour
     {
         GameManage.OnGameOver += ShowResult;
     }
+    void OnDisable()
+    {
+        GameManage.OnGameOver -= ShowResult;
+    }
 
     void ShowResult()
     {

@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpearLauncher : MonoBehaviour
 {
     [Header("조준 설정")]
-    public float angleOffset = -90f;
+    public float angleOffset = 0;
 
     [Header("발사 설정")]
     public float shootSpeed = 20f;
@@ -24,7 +24,7 @@ public class SpearLauncher : MonoBehaviour
 
     void Update()
     {
-        if (!isShooting && !isReturning)
+        if (!isShooting && !isReturning && !FGameManager.isGameOver)
         {
             HandleAiming();
             if (Input.GetMouseButtonDown(0))
@@ -60,6 +60,7 @@ public class SpearLauncher : MonoBehaviour
         if (isShooting)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetWorldPos, shootSpeed * Time.deltaTime);
+            
             
             if (Vector3.Distance(transform.position, targetWorldPos) < 0.1f)
             {

@@ -24,7 +24,7 @@ public class FScoreManager : MonoBehaviour
 
         if (scoreText != null)
         {
-            scoreText.text = "Score: " + currentScore;
+            scoreText.text = currentScore.ToString();
         }
     }
     

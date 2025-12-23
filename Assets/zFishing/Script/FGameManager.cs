@@ -2,14 +2,19 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System;
 
 public class FGameManager : MonoBehaviour
 {
     public static FGameManager instance;
 
-    public GameObject resultPanel;    // 결과 창 Panel 오브젝트
+    public RectTransform resultContainer;    // 결과 창 Panel 오브젝트
     public TextMeshProUGUI finalScoreText; // 결과 창에 표시할 최종 점수 텍스트
-    private bool isGameOver = false;
+    public EndCard endCard;
+    public Rank rankScript1;
+    public Rank rankScript2;
+    public Rank rankScript3;
+    public static bool isGameOver = false;
 
     void Awake()
     {
@@ -18,29 +23,36 @@ public class FGameManager : MonoBehaviour
 
     void Start()
     {
-        // 시작할 때 결과 창은 꺼둡니다.
-        if (resultPanel != null) resultPanel.SetActive(false);
+        Time.timeScale = 10f;
     }
 
     // 게임 종료 함수
-    public void EndGame()
+    public async void EndGame()
     {
         if (isGameOver) return;
         isGameOver = true;
 
         Debug.Log("게임 종료! 특정 지점 도달.");
 
-        // 1. 결과 창 활성화
-        if (resultPanel != null) resultPanel.SetActive(true);
 
-        // 2. 최종 점수 표시
-        if (finalScoreText != null && FScoreManager.instance != null)
+
+        // 1. 결과 창 활성화
+        if (resultContainer != null) 
         {
-            finalScoreText.text = "Final Score: " + FScoreManager.instance.currentScore.ToString();
+            endCard.EndCardAppear();
+            LeanTween.moveY(resultContainer, 0, 2f).setEase(LeanTweenType.easeOutQuint).setDelay(3f);
         }
 
-        // 3. 게임 시간 정지 (보트 이동, 물고기 생성 등 중지)
-        Time.timeScale = 0;
+        try
+        {
+            await rankScript1.BeforeWriteLeaderboard(FScoreManager.instance.currentScore);
+            await rankScript1.BeforeWriteLeaderboard(FScoreManager.instance.currentScore);
+            await rankScript1.BeforeWriteLeaderboard(FScoreManager.instance.currentScore);
+        }
+        catch(Exception ex)
+        {
+            Debug.Log("리더보드 실패: " + ex.Message);
+        }
     }
 
     // 다시 시작 버튼 등에 연결할 함수

@@ -36,6 +36,9 @@ public class GameStart : MonoBehaviour
 
     IEnumerator DoChangeScene()
     {
+        if (sceneNum >= 0 && sceneNum <= 3)
+            Coin.coinAmount--;
+            
         yield return new WaitForSeconds(1.5f);
 
         ChangeScene();

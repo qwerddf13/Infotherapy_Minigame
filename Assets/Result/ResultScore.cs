@@ -22,7 +22,17 @@ public class ResultScore : MonoBehaviour
 
     void OnEnable()
     {
-        GameManage.OnGameOver += () => StartCoroutine(DoShowScore());
+        GameManage.OnGameOver += DoCoroutine;
+    }
+
+    void OnDisable()
+    {
+        GameManage.OnGameOver -= DoCoroutine;
+    }
+
+    void DoCoroutine()
+    {
+        StartCoroutine(DoShowScore());
     }
 
     IEnumerator DoShowScore()

@@ -8,6 +8,7 @@ public class DeadEffectManage : MonoBehaviour
     public Animator deadEffectAnimator;
     public Animator playerAnimator;
     public AudioSource woodCrashSound;
+    public GameObject player;
 
     void Start()
     {
@@ -21,17 +22,23 @@ public class DeadEffectManage : MonoBehaviour
 
     void OnEnable()
     {
-        GameManage.OnGameOver += () => StartCoroutine(DoShowDeadEffect());
+        GameManage.OnGameOver += DoCoroutine;
     }
 
     void OnDisable()
     {
+        GameManage.OnGameOver -= DoCoroutine;
+    }
 
+    void DoCoroutine()
+    {
+        StartCoroutine(DoShowDeadEffect());
     }
 
     IEnumerator DoShowDeadEffect()
     {
         deadEffect.SetActive(true);
+        transform.position = player.transform.position;
 
         yield return new WaitUntil(() => playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Player_Dead"));
         yield return new WaitUntil(() => playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.60f);

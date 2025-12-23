@@ -32,16 +32,16 @@ public class EndCard : MonoBehaviour
 
     void OnDisable()
     {
-
+        GameManage.OnGameOver -= EndCardAppear;
     }
 
-    void EndCardDisappear()
+    public void EndCardDisappear()
     {
         LeanTween.color(rectTransform, new Color(0, 0, 0, 0f), 1f).setDelay(0.5f).setFromColor(new Color(0, 0, 0, 1f));
     }
 
-    void EndCardAppear()
+    public void EndCardAppear()
     {
-        LeanTween.color(rectTransform, new Color(0, 0, 0, 0.9f), 1f).setDelay(2f).setFromColor(new Color(0, 0, 0, 0f));
+        LeanTween.color(rectTransform, new Color(0, 0, 0, 0.9f), 1f).setDelay(1.5f).setFromColor(new Color(0, 0, 0, 0f));
     }
 }
