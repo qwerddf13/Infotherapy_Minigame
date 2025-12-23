@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class ChopSoundManage : MonoBehaviour
 {
-    public AudioSource audioSource1;
-    public AudioSource audioSource2;
+    public Sound sound1;
+    public Sound sound2;
 
     void Start()
     {
-        audioSource1.time = 0.1f;
-        audioSource2.time = 0.4f;
+        sound1.SetTimeSoundInScript(0.1f);
+        sound2.SetTimeSoundInScript(0.4f);
     }
 
     void Update()
@@ -27,16 +27,16 @@ public class ChopSoundManage : MonoBehaviour
     {
         if (isPerfect == true)
         {
-            audioSource1.pitch = 1.04f;
+            sound1.SetSoundPitchInScript(1.04f);
         }
         else
         {
-            audioSource1.pitch = 1.0f;
+            sound1.SetSoundPitchInScript(1.0f);
         }
 
-        audioSource1.PlayOneShot(audioSource1.clip);
+        sound1.PlaySoundInScript();
 
-        audioSource2.pitch = Random.Range(0.90f, 1.0f);
-        audioSource2.PlayOneShot(audioSource2.clip);
+        sound2.SetSoundPitchInScript(Random.Range(0.90f, 1.0f));
+        sound2.PlaySoundInScript();
     }
 }

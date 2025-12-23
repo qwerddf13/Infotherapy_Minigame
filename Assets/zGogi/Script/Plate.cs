@@ -35,7 +35,7 @@ public class Plate : MonoBehaviour
                 if (Score.instance != null)
                 {
                     Score.instance.AddScore(getScore);
-                    Debug.Log("ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½: " + getScore);
+                    Debug.Log("Á¡¼ö È¹µæ: " + getScore);
                 }
 
 

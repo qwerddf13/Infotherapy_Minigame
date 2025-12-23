@@ -48,8 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitEffectPrefab: {fileID: 8521201470217349474, guid: b15d5d07f2ef53a4ba2bac091e181768, type: 3}
-  speed: 20
-  scoreValue: 10000
+  speed: 15
+  scoreValue: 50
 --- !u!212 &5100274590698731989
 SpriteRenderer:
   m_ObjectHideFlags: 0

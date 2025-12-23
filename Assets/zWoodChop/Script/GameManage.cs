@@ -7,6 +7,7 @@ using Unity.Services.Core;
 public class GameManage : MonoBehaviour
 {
     public bool isGameRunning = false;
+
     async void Start()
     {
         await UnityServices.InitializeAsync();

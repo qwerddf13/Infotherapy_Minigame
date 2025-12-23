@@ -60,7 +60,7 @@ public class FScoreManager : MonoBehaviour
         currentScore += amount;
         if (scoreText != null)
         {
-            scoreText.text = "Score: " + currentScore;
+            scoreText.text = currentScore.ToString();
         }
 
         if (scoreAudioSource != null)
