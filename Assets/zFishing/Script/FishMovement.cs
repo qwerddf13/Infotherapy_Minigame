@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class FishMovement : MonoBehaviour
 {
-    public GameObject hitEffectPrefab; // 여기에 이펙트 프리팹을 넣을 거예요.
+    public GameObject hitEffectPrefab; 
     public float speed = 5.0f;
-    public int scoreValue = 10;      // 이 물고기의 점수 (인스펙터에서 수정!)
+    public int scoreValue = 10;      
     private Vector2 moveDirection;
     private float destroyX;
-    private bool isDead = false;     
+    
+    // isDead 변수는 현재 Catch 로직에서 필요 없으므로 삭제하거나 
+    // isCaught와 통합하여 경고를 제거합니다.
     private bool isCaught = false;
     
     private Animator anim;
@@ -32,7 +34,8 @@ public class FishMovement : MonoBehaviour
 
     void Update()
     {
-        if (isCaught) return;
+        if (isCaught) return; // 잡힌 상태면 이동 중지
+
         transform.Translate(moveDirection * speed * Time.deltaTime);
 
         if ((moveDirection == Vector2.left && transform.position.x <= destroyX) ||
@@ -42,47 +45,33 @@ public class FishMovement : MonoBehaviour
         }
     }
 
-    // 작살(Spear 태그)과 부딪히면 점수를 주고 죽습니다.
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // 작살에 부딪혔을 때만 잡기 실행
         if (collision.CompareTag("Spear") && !isCaught)
         {
             Catch(collision.transform);
         }
     }
 
-
-    void Die()
-    {
-        isDead = true;
-
-        // 1. 이펙트 생성 (물고기 위치에 생성)
-        if (hitEffectPrefab != null)
-        {
-            Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
-        }
-
-        // 2. 점수 추가 및 애니메이션 (기존 코드)
-        if (FScoreManager.instance != null) FScoreManager.instance.AddScore(scoreValue);
-        if (anim != null) anim.SetTrigger("Die");
-
-        Destroy(gameObject, 0.5f);
-    }
     void Catch(Transform spearTransform)
     {   
-        isCaught = true;
+        isCaught = true; // 이동 로직 멈춤
     
-        // 1. 죽는 애니메이션이나 이펙트 실행
+        // 1. 애니메이션 실행
         if (anim != null) anim.SetTrigger("Die");
     
-        // 2. 이펙트 생성 (선택 사항)
-        if (hitEffectPrefab != null) Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
+        // 2. 이펙트 생성
+        if (hitEffectPrefab != null) 
+            Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
 
+        // 3. 작살의 자식으로 설정하여 함께 이동
         transform.SetParent(spearTransform);
+
+        // 4. 효과음 재생 (FScoreManager 인스턴스 확인)
         if (FScoreManager.instance != null)
         {
             FScoreManager.instance.PlaySFX(FScoreManager.instance.hitSound);
         }
     }
-    
 }
