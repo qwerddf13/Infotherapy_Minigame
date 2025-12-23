@@ -8,13 +8,13 @@ using TMPro;
 using System.Threading.Tasks;
 using System.Text;
 
-public class Rank : MonoBehaviour
+public class FRank : MonoBehaviour
 {
     [SerializeField] TMP_Text rankText;
     [SerializeField] TMP_Text nameText;
     [SerializeField] TMP_Text scoreText;
     [SerializeField] Leaderboards leaderboards;
-    [SerializeField] ScoreManage scoreManage;
+    [SerializeField] FScoreManager fScoreManager;
     [SerializeField] int myNum;
     int rankNum;
 
@@ -30,22 +30,23 @@ public class Rank : MonoBehaviour
 
     void OnEnable()
     {
-        GameManage.OnGameOver += async () => await BeforeWriteLeaderboard();
+        
     }
 
-    async Task BeforeWriteLeaderboard()
+    public async Task BeforeWriteLeaderboard()
     {
-        if (leaderboards != null)
+        if (leaderboards != null){
         try
         {
-            await leaderboards.SubmitScore("CuttingWoods", scoreManage.score);
+            await leaderboards.SubmitScore("Fishing", fScoreManager.currentScore);
         }
         catch (Exception ex)
         {
             Debug.LogError($"오류남ㅅㄱ: {ex.Message}");
         }
+        }
         
-        var myRank = await LeaderboardsService.Instance.GetPlayerScoreAsync("CuttingWoods");
+        var myRank = await LeaderboardsService.Instance.GetPlayerScoreAsync("Fishing");
         rankNum = myRank.Rank + myNum;
 
         await WriteLeaderboard(rankNum);
@@ -55,7 +56,7 @@ public class Rank : MonoBehaviour
     {
         try
         {
-            var myScore = await LeaderboardsService.Instance.GetScoresAsync("CuttingWoods", new GetScoresOptions
+            var myScore = await LeaderboardsService.Instance.GetScoresAsync("Fishing", new GetScoresOptions
             {
                 Limit = 1, Offset = rank, IncludeMetadata = true
             });

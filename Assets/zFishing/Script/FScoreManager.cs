@@ -9,23 +9,51 @@ public class FScoreManager : MonoBehaviour
     public int currentScore = 0;
     public TextMeshProUGUI scoreText;
 
-    [Header("효과음 설정")]
-    public AudioSource audioSource;
-    public AudioClip scoreSound;
-    public AudioClip hitSound;
+    [Header("효과음 설정 (AudioSource 방식)")]
+    public AudioSource scoreAudioSource; 
+    public AudioSource hitAudioSource;
+    public AudioSource shootAudioSource;
+
+    [Header("배경 음악 설정")]
+    public AudioSource backgroundAudioSource; // 배경 음악용 추가
 
     void Awake() 
-    { 
-        if (instance == null) instance = this; 
-        else Destroy(gameObject); // 중복 인스턴스 방지
+{ 
+    Time.timeScale = 1f; // 게임 속도를 1배속으로 강제 초기화
+    if (instance == null) instance = this; 
+    else Destroy(gameObject); 
+}
+
+    void Start()
+    {
+        // 게임 시작 시 배경 음악 재생
+        PlayBackgroundMusic();
     }
 
-    public void PlaySFX(AudioClip clip)
+    public void PlayBackgroundMusic()
     {
-        if (audioSource != null && clip != null)
+        if (backgroundAudioSource != null && !backgroundAudioSource.isPlaying)
         {
-            audioSource.PlayOneShot(clip);
+            backgroundAudioSource.Play();
         }
+    }
+
+    public void StopBackgroundMusic()
+    {
+        if (backgroundAudioSource != null)
+        {
+            backgroundAudioSource.Stop();
+        }
+    }
+
+    public void PlayShootSound()
+    {
+        if (shootAudioSource != null) shootAudioSource.Play();
+    }
+
+    public void PlayHitSound()
+    {
+        if (hitAudioSource != null) hitAudioSource.Play();
     }
 
     public void AddScore(int amount)
@@ -33,9 +61,14 @@ public class FScoreManager : MonoBehaviour
         currentScore += amount;
         if (scoreText != null)
         {
-            scoreText.text = "Score: " + currentScore;
+            scoreText.text = currentScore.ToString();
         }
-        PlaySFX(scoreSound);
+
+        if (scoreAudioSource != null)
+        {
+            scoreAudioSource.Play();
+        }
+        
         Debug.Log("현재 점수: " + currentScore);
     }
 }

@@ -10,7 +10,15 @@ public class RestartButtonText : MonoBehaviour
     [SerializeField] Button button;
     void Start()
     {
-        button.onClick.AddListener(() => Coin.coinAmount--);
+        if (Coin.coinAmount <= 0)
+        {
+            button.interactable = false;
+        }
+        else
+        {
+            button.interactable = true;
+        }
+        // button.onClick.AddListener(() => Coin.coinAmount--);
     }
 
     void Update()
