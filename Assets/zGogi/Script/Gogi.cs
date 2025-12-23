@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Gogi : MonoBehaviour
 {
+    [SerializeField] private AudioClip flipSound;
+    private AudioSource audioSource;
+
+
     public Sprite frontGogi, backGogi, roastfrontGogi, roastbackGogi;
     public Sprite burnGogi;
 
@@ -22,6 +26,13 @@ public class Gogi : MonoBehaviour
     void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+        audioSource.playOnAwake = false;
         ResetGogi();
     }
 
@@ -37,7 +48,18 @@ public class Gogi : MonoBehaviour
         if (sr != null && frontGogi != null) sr.sprite = frontGogi;
     }
 
-    public void Flip() { isFront = !isFront; Visual(); }
+    public void Flip()
+    {
+        isFront = !isFront;
+
+        // 뒤집을 때 소리 재생
+        if (flipSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(flipSound);
+        }
+
+        Visual();
+    }
 
     void Update()
     {
