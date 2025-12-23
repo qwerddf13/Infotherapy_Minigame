@@ -43,7 +43,7 @@ public class Coin : MonoBehaviour
 
     public void DecreaseToInsertCoin()
     {
-        if (toInsertCoin > 0)
+        if (toInsertCoin > -99)
         {
             toInsertCoin--;
         }
@@ -54,6 +54,10 @@ public class Coin : MonoBehaviour
         insertCoinSound.Play();
 
         coinAmount += toInsertCoin;
+        if (coinAmount < 0)
+        {
+            coinAmount = 0;
+        }
         realText.text = "";
         acceptButton.interactable = false;
     }
