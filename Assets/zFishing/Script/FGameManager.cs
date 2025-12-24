@@ -22,7 +22,7 @@ public class FGameManager : MonoBehaviour
 
     void Start()
     {
-        Time.timeScale = 10f;
+        Time.timeScale = 1f;
     }
 
     // 게임 종료 함수
