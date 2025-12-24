@@ -20,7 +20,7 @@ public class BoatMovement : MonoBehaviour
         if (transform.position.x <= finishX)
         {
             canMove = false; // 이동 중지
-            FGameManager.instance.EndGame(); // 게임 종료 호출
+            FGameManager.instance.EndGame0(); // 게임 종료 호출
         }
     }
 }

@@ -22,10 +22,16 @@ public class FGameManager : MonoBehaviour
 
     void Start()
     {
-        Time.timeScale = 1f;
+        Time.timeScale = 10f;
     }
 
     // 게임 종료 함수
+
+    public void EndGame0()
+    {
+        EndGame();
+    }
+
     public async void EndGame()
     {
         if (isGameOver) return;
@@ -36,11 +42,8 @@ public class FGameManager : MonoBehaviour
 
 
         // 1. 결과 창 활성화
-        if (resultContainer != null) 
-        {
-            endCard.EndCardAppear();
-            LeanTween.moveY(resultContainer, 0, 2f).setEase(LeanTweenType.easeOutQuint).setDelay(3f);
-        }
+        endCard.EndCardAppear();
+        LeanTween.moveY(resultContainer, 0, 2f).setEase(LeanTweenType.easeOutQuint).setDelay(3f);
 
         try
         {
